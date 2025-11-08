@@ -7,7 +7,7 @@ sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 => SystemdCgroup = true
 sudo systemctl restart containerd
------  ctr (is not userfriendy cli , i recommand to use nerdctl instead)---------------------
+-----  ctr (is not userfriendy cli , i recommand to use nerdctl or crictl instead)---------------------
 sudo ctr version
 sudo ctr plugins ls
 --
@@ -29,4 +29,11 @@ sudo mv /usr/local/nerdctl /usr/local/bin/
 sudo nerdctl run -d -p 80:80 nginx
 sudo nerdctl ps
 sudo nerdctl images
+-------------crictl-------------------------
+VERSION="v1.34.0"
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-$VERSION-linux-amd64.tar.gz
+sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
+rm -f crictl-$VERSION-linux-amd64.tar.gz
+---
+crictl ps
 
