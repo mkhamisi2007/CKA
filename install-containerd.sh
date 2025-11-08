@@ -7,7 +7,7 @@ sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 => SystemdCgroup = true
 sudo systemctl restart containerd
------  ctr ---------------------
+-----  ctr (is not userfriendy cli , i recommand to use nerdctl instead)---------------------
 sudo ctr version
 sudo ctr plugins ls
 --
