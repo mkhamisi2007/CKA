@@ -13,4 +13,4 @@ etcdctl get user --prefix
 ----
 etcdctl snapshot save backup.db
 etcdutl snapshot status backup.db
-etcdctl snapshot restore backup.db --data-dir /var/lib/etcd-restored
+etcdutl snapshot restore backup.db --data-dir /var/lib/etcd-restored
