@@ -37,3 +37,4 @@ rm -f crictl-$VERSION-linux-amd64.tar.gz
 ---
 crictl ps
 crictl image ls
+crictl pods
