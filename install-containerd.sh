@@ -36,4 +36,4 @@ sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
 rm -f crictl-$VERSION-linux-amd64.tar.gz
 ---
 crictl ps
-
+crictl image ls
