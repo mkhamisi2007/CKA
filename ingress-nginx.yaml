@@ -1,6 +1,6 @@
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
 ----------------------------------------
-kubectl apply -f deploy.yaml # deploy and service (service name = nginx-service *** )
+kubectl apply -f deploy.yaml # deploy and service (service name = nginx-service *** &  type: LoadBalancer )
 kubectl apply -f nginx-ing.yaml
 ---
 apiVersion: networking.k8s.io/v1
