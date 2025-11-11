@@ -43,7 +43,7 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-    - hosts:
+    - hosts: # if you need https
         - localhost
       secretName: my-tls
   rules:
