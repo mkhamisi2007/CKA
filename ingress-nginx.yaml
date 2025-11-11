@@ -1,5 +1,6 @@
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
 ----------------------------------------
+kubectl apply -f deploy.yaml # deploy and service (service name = nginx-service *** )
 kubectl apply -f nginx-ing.yaml
 ---
 apiVersion: networking.k8s.io/v1
@@ -15,10 +16,10 @@ spec:
     - host: localhost
       http:
         paths:
-          - path: /
+          - path: / # or /test or waht you want
             pathType: Prefix
             backend:
               service:
-                name: nginx-service  # coonect to our service
+                name: nginx-service  # connect to our service ***
                 port:
                   number: 80
