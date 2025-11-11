@@ -23,3 +23,9 @@ spec:
                 name: nginx-service  # connect to our service ***
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend: { service: { name: api-svc, port: { number: 80 } } }
+          - path: /web
+            pathType: Prefix
+            backend: { service: { name: web-svc, port: { number: 80 } } }
