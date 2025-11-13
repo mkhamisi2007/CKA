@@ -1,0 +1,26 @@
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml
+---
+metallb-system   controller-7cf7f554b6-qr49h              1/1     Running   0               2m27s
+metallb-system   speaker-m6pgm                            1/1     Running   0               2m27s
+---
+--------------------------------------------------------------
+kubectl apply -f metallb-config.yaml
+-------
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: my-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.65.240-192.168.65.250   # محدوده مجاز برای اختصاص IP به سرویس‌ها
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - my-ip-pool
+--------------------------------------------------------------
