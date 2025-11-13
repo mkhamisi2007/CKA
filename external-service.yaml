@@ -1,3 +1,4 @@
+--------------SERVICE------------------------
 apiVersion: v1
 kind: Service
 metadata:
@@ -25,7 +26,7 @@ subsets:
       - ip: 172.38.100.68
     ports:
       - port: 5432
------------------------------------
+----------------SECRET-------------------
 apiVersion: v1
 kind: Secret
 metadata:
@@ -35,7 +36,7 @@ stringData:
   PGUSER: user1
   PGPASSWORD: mypass
   PGDATABASE: myDbName
----
+-----------------POD-------------------
 apiVersion: v1
 kind: Pod
 metadata:
@@ -56,6 +57,7 @@ spec:
         - secretRef:
             name: pg-credentials
 ----------------------------------------------------------
+kubectl exec -it pg-client -- bash
 psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME"
 
 
