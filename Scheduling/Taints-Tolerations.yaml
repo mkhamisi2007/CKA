@@ -1,0 +1,16 @@
+--------------Taint-----------------------------
+kubectl taint nodes node1 role=db:NoSchedule
+---------------Tolerations-----------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-toleration
+spec:
+  tolerations:
+    - key: "role"
+      operator: "Equal"
+      value: "db"
+      effect: "NoSchedule"
+  containers:
+    - name: nginx
+      image: nginx
