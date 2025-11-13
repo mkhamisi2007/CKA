@@ -1,0 +1,27 @@
+------------ NameSpace limit ----------------
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: default-quota
+  namespace: default
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: 4Gi
+    limits.cpu: "4"
+    limits.memory: 8Gi
+---------------Container limit-------------
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: default-limits
+  namespace: default
+spec:
+  limits:
+  - default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 200m
+      memory: 256Mi
+    type: Container
