@@ -3,6 +3,14 @@ kind: Service
 metadata:
   name: external-postgres
 spec:
+  type: ExternalName
+  externalName: db.example.com
+-----------OR ------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-postgres
+spec:
   ports:
     - port: 5432
       targetPort: 5432
@@ -17,7 +25,7 @@ subsets:
       - ip: 172.38.100.68
     ports:
       - port: 5432
----
+-----------------------------------
 apiVersion: v1
 kind: Secret
 metadata:
