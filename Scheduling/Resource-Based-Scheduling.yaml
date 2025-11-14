@@ -8,7 +8,7 @@ spec:
     image: nginx
     resources: 
       requests:
-        cpu: "500m" # 1 = 1000m
+        cpu: "500m" # 1 (vCPU) = 1000m
         memory: "256Mi"  # 1Gi = 1 giga byte
 -------------------------------------------
 apiVersion: apps/v1
