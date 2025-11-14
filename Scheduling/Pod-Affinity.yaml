@@ -1,5 +1,7 @@
 HARD : requiredDuringSchedulingIgnoredDuringExecution
 SOFT : preferredDuringSchedulingIgnoredDuringExecution
+podAffinity 
+podAntiAffinity
 ------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
