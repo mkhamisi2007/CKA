@@ -1,5 +1,6 @@
 --------------Taint-----------------------------
 kubectl taint nodes node1 app=db:NoSchedule
+kubectl taint nodes node1 app=db:NoSchedule-
 ---------------Tolerations-----------------------
 apiVersion: v1
 kind: Pod
