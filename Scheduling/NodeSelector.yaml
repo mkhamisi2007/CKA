@@ -4,7 +4,7 @@ metadata:
   name: nginx-selector
 spec:
   nodeSelector:
-    disktype: ssd # select nodes that have this lable
+    disktype: ssd # select nodes that have this lable(kubectl label nodes worker-node-1 disktype=ssd)
   containers:
   - name: nginx
     image: nginx:latest
