@@ -16,7 +16,7 @@ spec:
         app: nginx
     spec:
       affinity:
-        podAffinity: #-----> pod near to each other
+        podAffinity: #-----> pod near to each other 🧲
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
             podAffinityTerm:
@@ -46,7 +46,7 @@ spec:
         app: nginx
     spec:
       affinity:
-        podAntiAffinity: #-----> pod far away from each other
+        podAntiAffinity: #-----> pod far away from each other 🚫
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
             podAffinityTerm:
