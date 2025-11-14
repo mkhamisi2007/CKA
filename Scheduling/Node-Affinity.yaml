@@ -1,62 +1,62 @@
 HARD : requiredDuringSchedulingIgnoredDuringExecution
 SOFT : preferredDuringSchedulingIgnoredDuringExecution
+Affinity => In , Exist
+Anti-Affinity => NotIn , NotExist
 ------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-affinity
+  name: node-affinity-example
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: demo
   template:
     metadata:
       labels:
-        app: nginx
+        app: demo
     spec:
       affinity:
-        podAffinity: #-----> pod near to each other 🧲
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In #--------> In , NotIn , Exists , DoesNotExist , Gt , Lt
-                  values:
-                  - redis
-              topologyKey: "kubernetes.io/hostname"
+        nodeAffinity:  #-----> pod near to each other 🧲
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In # ----------> *
+                values:
+                - backend
       containers:
       - name: nginx
         image: nginx
-------------------------------------
+--------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-anti
+  name: backend-deploy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: backend
   template:
     metadata:
       labels:
-        app: nginx
+        app: backend
     spec:
       affinity:
-        podAntiAffinity: #-----> pod far away from each other 🚫
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In #--------> In , NotIn , Exists , DoesNotExist , Gt , Lt
-                  values:
-                  - nginx
-              topologyKey: "kubernetes.io/hostname"
+        nodeAffinity:  #-----> pod far away from each other 🚫
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: env
+                operator: NotIn  # ----------> *
+                values:
+                - prod
       containers:
-      - name: nginx
+      - name: backend
         image: nginx
+        ports:
+        - containerPort: 80
+
+
