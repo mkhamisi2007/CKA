@@ -10,3 +10,29 @@ spec:
       requests:
         cpu: "500m"
         memory: "256Mi"  # 1Gi = 1 giga byte
+-------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: resource-demo
+  template:
+    metadata:
+      labels:
+        app: resource-demo
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
