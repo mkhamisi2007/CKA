@@ -7,3 +7,39 @@ spec:
   containers:
     - name: nginx
       image: nginx:latest
+-------------OR --------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 8080
+  nodeName:     # Not set and we suppuse that there are no Scheduler
+---------- bind-definition.json ------------
+{
+  "apiVersion": "v1",
+  "kind": "Binding",
+  "metadata": {
+    "name": "nginx"
+  },
+  "target": {
+    "apiVersion": "v1",
+    "kind": "Node",
+    "name": "node02"
+  }
+}
+
+-----------Send Request for Binding to Api-Server---------
+curl -k \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  --request POST \
+  --data @bind-definition.json \
+  https://$SERVER/api/v1/namespaces/default/pods/nginx/binding/
+
