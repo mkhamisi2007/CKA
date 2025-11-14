@@ -1,7 +1,7 @@
 HARD : requiredDuringSchedulingIgnoredDuringExecution
 SOFT : preferredDuringSchedulingIgnoredDuringExecution
-Affinity => In , Exist
-Anti-Affinity => NotIn , NotExist
+nodeAffinity -- Affinity => In , Exist
+nodeAffinity -- Anti-Affinity => NotIn , NotExist
 ------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
