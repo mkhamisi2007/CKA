@@ -1,4 +1,5 @@
 --------------Taint-----------------------------
+kubectl describe node node1 | grep Taint
 kubectl taint nodes node1 app=db:NoSchedule
 kubectl taint nodes node1 app=db:NoSchedule-
 ---------------Tolerations-----------------------
