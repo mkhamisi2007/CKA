@@ -9,4 +9,4 @@ spec:
     resources: 
       requests:
         cpu: "500m"
-        memory: "256Mi"
+        memory: "256Mi"  # 1Gi = 1 giga byte
