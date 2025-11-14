@@ -14,5 +14,21 @@ kubectl get node <node-name> --show-labels
 kubectl label nodes worker-node-1 env=production
 kubectl label nodes worker-node-1 env=dev --overwrite
 kubectl label nodes worker-node-1 env- 
-
+---------------- Label  for other object-----------------------------
+kubectl label node docker-desktop env=dev
+kubectl label pod mypod app=backend
+kubectl label deployment my-deploy tier=web
+kubectl label rs my-rs version=v1
+kubectl label daemonset my-ds role=logging
+kubectl label statefulset my-db cluster=prod
+kubectl label job my-job type=batch
+kubectl label cronjob my-cron schedule=daily
+kubectl label svc my-service visibility=internal
+kubectl label configmap my-config module=auth
+kubectl label secret db-secret owner=khamisi
+kubectl label namespace dev team=backend
+kubectl label pv my-pv zone=eu-west
+kubectl label pvc my-claim app=postgres
+kubectl label ingress my-ingress env=prod
+kubectl label sa default app=demo
 
