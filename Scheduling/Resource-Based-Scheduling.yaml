@@ -9,7 +9,7 @@ spec:
     resources: 
       requests:
         cpu: "500m" # 1 (vCPU) = 1000m
-        memory: "256Mi"  # 1Gi = 1 giga byte
+        memory: "256Mi"  # 1Gi = 1 giga byte , (Gi,Mi,Ki)
 -------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
