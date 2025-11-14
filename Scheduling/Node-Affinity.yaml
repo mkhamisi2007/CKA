@@ -23,7 +23,7 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: In
+                  operator: In #--------> In , NotIn , Exists , DoesNotExist , Gt , Lt
                   values:
                   - redis
               topologyKey: "kubernetes.io/hostname"
@@ -53,7 +53,7 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: In
+                  operator: In #--------> In , NotIn , Exists , DoesNotExist , Gt , Lt
                   values:
                   - nginx
               topologyKey: "kubernetes.io/hostname"
