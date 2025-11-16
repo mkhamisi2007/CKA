@@ -1,0 +1,17 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: critical-app
+value: 10000000
+globalDefault: false
+description: "Critical application that must always run"
+----------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  priorityClassName: critical-app #---------> our priority class
+  containers:
+  - name: app
+    image: nginx
