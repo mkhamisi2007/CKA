@@ -1,0 +1,8 @@
+kubectl get pod kube-apiserver-docker-desktop -n kube-system -o yaml
+---------------
+kubectl get pod kube-apiserver-docker-desktop -n kube-system -o custom-columns="IMG:.spec.containers[*].image"
+kubectl get pod kube-apiserver-docker-desktop -n kube-system -o custom-columns="POD:.metadata.name,IMG:.spec.containers[*].image"
+kubectl get pod kube-apiserver-docker-desktop -n kube-system -o custom-columns="INIT_IMG:.spec.initContainers[*].image"
+kubectl get pod kube-apiserver-docker-desktop -n kube-system -o custom-columns="CPU:.spec.containers[*].resources.requests.cpu,RAM:.spec.containers[*].resources.requests.memory"
+kubectl get pods -o custom-columns="NAME:.metadata.name,PRIORITY:.spec.priorityClassName"
+
