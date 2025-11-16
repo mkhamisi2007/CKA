@@ -1,5 +1,7 @@
-docker run -it busybox sh
+docker run -it --rm busybox sh
 kubectl run test --image=busybox --rm -it -- sh
+----- view kublete--------------
+ps -ef | grep kubelet
 ----------------------------------------------------------
 apiVersion: v1
 kind: Pod
