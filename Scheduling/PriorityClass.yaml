@@ -3,6 +3,7 @@ kind: PriorityClass
 metadata:
   name: critical-app
 value: 10000000
+preemptionPolicy: PreemptLowerPriority
 globalDefault: false
 description: "Critical application that must always run"
 ----------------------------------
