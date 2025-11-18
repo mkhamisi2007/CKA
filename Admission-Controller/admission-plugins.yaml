@@ -1,0 +1,11 @@
+ps -ef | grep kube-apiserver | grep admission-plugins
+---------------------------------------
+sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
+...  
+spec:
+  containers:
+  - command:
+      - kube-apiserver
+      - --advertise-address=...
+      - --enable-admission-plugins=NodeRestriction,... # add or remove Admission with ,
+-----------------------------------------
