@@ -9,3 +9,5 @@ spec:
       - --advertise-address=...
       - --enable-admission-plugins=NodeRestriction,... # add or remove Admission with ,
 -----------------------------------------
+kubectl exec -it kube-apiserver-docker-desktop -n kube-system -- kube-apiserver -h
+kubectl exec -it kube-apiserver-controlplane -n kube-system -- kube-apiserver -h | grep 'enable-admission-plugins'
