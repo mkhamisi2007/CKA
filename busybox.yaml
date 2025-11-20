@@ -1,5 +1,7 @@
 docker run -it --rm busybox sh
 kubectl run test --image=busybox --rm -it -- sh
+-------curl image --------------
+kubectl run curl --rm -it --image=curlimages/curl -- sh
 ----- view kublete--------------
 ps -ef | grep kubelet
 ----------------------------------------------------------
