@@ -1,0 +1,70 @@
+kubectl create secret tls webhook-server-tls --cert="/root/keys/webhook-server-tls.crt" --key="/root/keys/webhook-server-tls.key" -n webhook-demo
+------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-server
+  namespace: webhook-demo
+  labels:
+    app: webhook-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook-server
+  template:
+    metadata:
+      labels:
+        app: webhook-server
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1234
+      containers:
+      - name: server
+        image: stackrox/admission-controller-webhook-demo:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8443
+          name: webhook-api
+        volumeMounts:
+        - name: webhook-tls-certs
+          mountPath: /run/secrets/tls
+          readOnly: true
+      volumes:
+      - name: webhook-tls-certs
+        secret:
+          secretName: webhook-server-tls
+-----------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook-server
+  namespace: webhook-demo
+spec:
+  selector:
+    app: webhook-server
+  ports:
+    - port: 443
+      targetPort: webhook-api
+-----------------------------------------------
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: demo-webhook
+webhooks:
+  - name: webhook-server.webhook-demo.svc
+    clientConfig:
+      service:
+        name: webhook-server
+        namespace: webhook-demo
+        path: "/mutate"
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURQekNDQWllZ0F3SUJBZ0lVTy9Yd2lxWGc3dlNIZ3U3ZzFVYlFpS3c3c1c0d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0x6RXRNQ3NHQTFVRUF3d2tRV1J0YVhOemFXOXVJRU52Ym5SeWIyeHNaWElnVjJWaWFHOXZheUJFWlcxdgpJRU5CTUI0WERUSTFNVEV5TURFd01qSXhPRm9YRFRJMU1USXlNREV3TWpJeE9Gb3dMekV0TUNzR0ExVUVBd3drClFXUnRhWE56YVc5dUlFTnZiblJ5YjJ4c1pYSWdWMlZpYUc5dmF5QkVaVzF2SUVOQk1JSUJJakFOQmdrcWhraUcKOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXNqV2FvRzErS1FQMDRlSFphWC9scDc3VnpuNXlnTkRjbU1ySwptYVZVQVZZOC96TXZaYzNPMzhHU3JLVXdLeTlmZXd1ek52TXkzN0lkQURYVXlCZU0wVlVvODRXdmNvTXRpRUt5CitOWHNhVEtMWVgySTFERmxYeFdFcEppM0tLTHpvYlJqbUorSXQwT0tXdVZGN1FKTGhteUdFQXZIeWtTSmVjVW8KeW5aUTFCMnJYK3NxMDdlUnFBcUZQUGhodTFDOWhUU20vbks2Vnh5aEErbDNleklSRnMzenBlWDk0b1BOMC9PRQptdUw2cWlteXdwWHl4UXo5NTVYWS9YQ1BFN3NRUVorTVdOaDlOQ09ON3E0YWdSaDd6RUtVamZEMzN5MDBkK2ZtCkJyYVkyOC9EbS9HdnNXZmp4SzlQSHpLVWpIaVJXZEhwWmpMbnRZSzN6UndRTE5GUldRSURBUUFCbzFNd1VUQWQKQmdOVkhRNEVGZ1FVanRBUFFveTBNelFqb1hpMVE4MUpUYysybkdBd0h3WURWUjBqQkJnd0ZvQVVqdEFQUW95MApNelFqb1hpMVE4MUpUYysybkdBd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DCkFRRUFFRVJGZmFEd0U0VklRYTZaRVhnb2tvUktWdjBEMVVoRjVraTJuRVNxRHpJaCt1bm1WUVB6eFluRlJTTm0KWVBaKzFwQ3hNZkdXdmJuK2NQdEwrdmlDL3piMkRkTFczZzBMa0EycXlwVmZpVHJHdkRrUUpZanVUbkpjaHdJbQpnL0NZWGxWV1dJQzBXazhtZmxRbFBCZjEvT05RdlFzTk93d3pxTUExY3d4YkNNY3F0eW9mSnF3ajhLK09FdTFrCldQcDFmdEg1MjlDRS9LNW9OaFBKYzZjcC9HYjMyY0hVMEdyUmllRjZHMGFmZW00bTZEYXd5SjNYSUlhd1VOaXcKOVRTeHFmcGZtdkZpL1ltVmx2Mk1zczVjZVRFM0hkWkxZT0FaOWV5VUZxZFoyR2FBZlhNU1o3UXhYcFdZWWQwMgo5dnpXODBmdm42NG45cndUSFk5eDN4WTl6QT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    admissionReviewVersions: ["v1beta1"]
+    sideEffects: None
+---------------------------------------------
