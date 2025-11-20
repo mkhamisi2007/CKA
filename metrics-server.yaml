@@ -19,8 +19,12 @@ kube-system   kube-controller-manager-k8n-master         33m          43Mi
 kube-system   kube-proxy-lm67l                           2m           11Mi
 kube-system   kube-scheduler-k8n-master                  7m           17Mi
 kube-system   metrics-server-5cd5f46567-7gpwm            11m          16Mi
-
--------------- docker desktop -----------------------------
+--
+kubectl top node
+---
+NAME         CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+k8n-master   385m         19%    1571Mi          41%
+-------------- docker desktop(error) -----------------------------
 kubectl delete deployment metrics-server -n kube-system
 kubectl delete service metrics-server -n kube-system --ignore-not-found
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
