@@ -1,1 +1,21 @@
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+------------ If error ---------------------------
+kubectl edit deployment metrics-server -n kube-system
+Add 2 lines:
+    - --kubelet-insecure-tls
+    - --kubelet-preferred-address-types=InternalIP
+
+------------------------ see pod ---------------------------
+kubectl top pods -A
+--
+NAMESPACE     NAME                                       CPU(cores)   MEMORY(bytes)
+kube-system   calico-kube-controllers-74d5f9d7bb-qdlq6   4m           11Mi
+kube-system   calico-node-gxwjp                          78m          81Mi
+kube-system   coredns-76f75df574-4ntww                   5m           12Mi
+kube-system   coredns-76f75df574-bkh8n                   4m           12Mi
+kube-system   etcd-k8n-master                            47m          58Mi
+kube-system   kube-apiserver-k8n-master                  129m         229Mi
+kube-system   kube-controller-manager-k8n-master         33m          43Mi
+kube-system   kube-proxy-lm67l                           2m           11Mi
+kube-system   kube-scheduler-k8n-master                  7m           17Mi
+kube-system   metrics-server-5cd5f46567-7gpwm            11m          16Mi
