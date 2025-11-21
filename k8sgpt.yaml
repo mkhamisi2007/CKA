@@ -1,4 +1,11 @@
-1. Download & install Ollama app
+1. Download & Unzip k8sgpt
+- environment variables => path => add the path
+k8sgpt version
+- Buy an API Key from "https://platform.openai.com/settings/organization/api-keys"
+k8sgpt auth add -p sk-XXXXXX...
+k8sgpt auth list
+-------------- for Free use without API Key use Ollama---------------------------
+2. Download & install Ollama app
 ollama --version
 ollama pull llama3
 ollama pull llama3:8b
