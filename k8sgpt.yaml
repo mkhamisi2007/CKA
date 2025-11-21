@@ -17,7 +17,7 @@ k8sgpt auth remove -b ollama
 ---
 
 k8sgpt analyze -n default --explain
--- Resuly & sulotions ------------------------
+------------------ Result & sulotions ------------------------
 W1121 09:54:12.820182    8548 warnings.go:70] v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
  100% |█████████████████████████████████████████████████████████████████████████████████████████████| (1/1, 18 it/hr)
 AI Provider: ollama
