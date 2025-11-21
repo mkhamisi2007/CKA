@@ -22,13 +22,14 @@ spec:
   containers:
     - name: app
       image: nginx
+      -------for one or more variables-------
       env:
         - name: COLOR
           valueFrom:
             configMapKeyRef: #------------
               name: color-config #------------
               key: APP_COLOR #------------
-      -------or all variable-------
+      -------or all variable----------------
       envFrom:  
         - configMapRef:
           name: color-config
