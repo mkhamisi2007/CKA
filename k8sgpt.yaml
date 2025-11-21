@@ -1,0 +1,26 @@
+1. Download & install Ollama app
+ollama --version
+ollama pull llama3
+ollama pull llama3:8b
+curl http://localhost:11434/api/tags
+k8sgpt auth add -b ollama -u http://localhost:11434 -m llama3
+k8sgpt auth default -p ollama
+--
+k8sgpt auth remove -b ollama
+---
+
+k8sgpt analyze -n default --explain
+-- Resuly & sulotions ------------------------
+W1121 09:54:12.820182    8548 warnings.go:70] v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+ 100% |█████████████████████████████████████████████████████████████████████████████████████████████| (1/1, 18 it/hr)
+AI Provider: ollama
+
+0: ConfigMap default/kube-root-ca.crt()
+- Error: ConfigMap kube-root-ca.crt is not used by any pods in the namespace
+Error: ConfigMap kube-root-ca.crt is not used by any pods in the namespace.
+
+Solution:
+1. Check if the ConfigMap is being used by any pods using `kubectl get pods -n <namespace> -o wide | grep kube-root-ca.crt`
+2. If no pods are using it, verify that the ConfigMap is actually created and available in the namespace using `kubectl get configmaps -n <namespace>`
+3. If the ConfigMap exists, check if any deployments or statefulsets are referencing it using `kubectl get deployments/statefulsets -n <namespace> | grep kube-root-ca.crt`
+4. If none of the above steps reveal the issue, try deleting and re-creating the ConfigMap to see if that resolves the problem.
