@@ -4,6 +4,7 @@ k8sgpt version
 - Buy an API Key from "https://platform.openai.com/settings/organization/api-keys"
 k8sgpt auth add -p sk-XXXXXX...
 k8sgpt auth list
+k8sgpt analyze -n default --explain
 -------------- for Free use without API Key use Ollama---------------------------
 2. Download & install Ollama app
 ollama --version
@@ -15,7 +16,6 @@ k8sgpt auth default -p ollama
 --
 k8sgpt auth remove -b ollama
 ---
-
 k8sgpt analyze -n default --explain
 ------------------ Result & sulotions ------------------------
 W1121 09:54:12.820182    8548 warnings.go:70] v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
