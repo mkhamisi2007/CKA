@@ -3,7 +3,7 @@ kubectl rollout history deployment myapp
 kubectl rollout undo deployment myapp
 kubectl rollout undo deployment myapp --to-revision=2
 kubectl rollout status deployment myapp
-------------------------------------
+------------------ RollingUpdate ------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +26,7 @@ spec:
       containers:
       - name: myapp
         image: nginx:1.19
--------------------------------
+--------------- Recreate ----------------
   apiVersion: apps/v1
 kind: Deployment
 metadata:
