@@ -1,4 +1,4 @@
-kubectl set image deployment/myapp myapp=nginx:1.20
+kubectl set image deployment/deployment_name container_name=nginx:1.20
 kubectl rollout history deployment myapp
 kubectl rollout undo deployment myapp
 kubectl rollout undo deployment myapp --to-revision=2
