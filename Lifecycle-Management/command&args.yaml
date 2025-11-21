@@ -1,0 +1,43 @@
+      image: my-app:v1
+      command: ["app-server"]
+      args:
+        [
+          "--host", "0.0.0.0",
+          "--port", "8080",
+          "--mode", "secure",
+          "--verbose", "true"
+        ]
+---------------------------------------------------------
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo "--- Step 1: list files ---";
+          ls -l /app;
+          
+          echo "--- Step 2: show resource limits ---";
+          echo CPU=$CPU_LIMIT MEM=$MEM_LIMIT;
+
+          echo "--- Step 3: run python app ---";
+          python /app/app.py --env=prod --workers=4;
+---------------------------------------------------------
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo "Start logs" > /var/log/start.log;
+          cat /etc/os-release | grep NAME;
+          python server.py --port=9000 --debug
+---------------------------------------------------------
+      command:
+        - "sleep"
+        - "1200"
+---------------------------------------------------------
+      command: ["sleep", "1200"]
+---------------------------------------------------------
+      command: ["sleep"]
+      args: ["1200"]
+---------------------------------------------------------
+      command:
+        - "/bin/sh"
+        - "-c"
+        - "echo hi; sleep 5; echo bye"
+---------------------------------------------------------
