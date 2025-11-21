@@ -44,7 +44,7 @@ spec:
       image: nginx
       volumeMounts:
         - name: config-volume
-          mountPath: /etc/config # ----> file will save here in container
+          mountPath: /etc/config # ----> file will save here in container (/etc/config/config.ini)
   volumes:
     - name: config-volume
       configMap:
