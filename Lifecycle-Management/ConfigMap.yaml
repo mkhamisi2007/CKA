@@ -28,6 +28,10 @@ spec:
             configMapKeyRef: #------------
               name: color-config #------------
               key: APP_COLOR #------------
+      -------or all variable-------
+      envFrom:  
+        - configMapRef:
+          name: color-config
 ------------------------------File-----------------------------
 kubectl create configmap file-config --from-file=config.ini
 ----
