@@ -45,7 +45,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/
 
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-
+====> metrics-server.yaml
 ----
 kubeadm join 10.0.0.10:6443 --token xxxxx.yyyyy \
     --discovery-token-ca-cert-hash sha256:zzzzzzzz
