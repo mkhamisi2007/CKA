@@ -1,0 +1,42 @@
+Encrypting Confidential Data at Rest
+-----
+https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/
+-------------------------------------------------
+head -c 32 /dev/urandom | base64
+mkdir /etc/kubernetes/enc
+nano /etc/kubernetes/enc/enc.yaml
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: EncryptionConfiguration
+resources:
+  - resources: # ---------> resources that impacted
+      - secrets
+      - configmaps
+    providers:
+      - aescbc: # ---------> Type of encryptions(identity,aescbc,aesgcm,kms v1,kms v2,secretbox)
+          keys:
+            - name: key1
+              secret: lS3pwFfZoHSUOF+3yrdOVcczk4con2m1Ctp1OV0eiv8= # ---------> head -c 32 /dev/urandom | base64
+      - identity: {} # ---------> this is for unencrypted secrets;
+  -------------------------------------------------------------------------------------
+  nano /etc/kubernetes/manifests/kube-apiserver.yaml
+  ...
+   - command:
+    - kube-apiserver
+    ...
+    - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # add this line
+  ...
+  volumeMounts:
+    ...
+    - name: enc                           
+      mountPath: /etc/kubernetes/enc      # path in container
+      readOnly: true                      
+    ...
+  volumes:
+  ...
+  - name: enc                             
+    hostPath:                             
+      path: /etc/kubernetes/enc           # path of my file 
+      type: DirectoryOrCreate             
+----------------------------------------------------------------------
+ ps -aux | grep kube-api | grep "encryption-provider-config"
