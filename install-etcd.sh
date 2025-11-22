@@ -64,3 +64,11 @@ etcdctl snapshot save backup.db
 etcdutl snapshot status backup.db
 sudo pkill etcd 2>/dev/null || true
 etcdutl snapshot restore backup.db --data-dir /var/lib/etcd-restored
+-------------------- connect to exist etcd pod in our cluster ---------------------------
+kubectl exec -it -n kube-system etcd-k8n-master -- sh
+export ETCDCTL_API=3
+export ETCDCTL_CACERT=/etc/kubernetes/pki/etcd/ca.crt
+export ETCDCTL_CERT=/etc/kubernetes/pki/etcd/peer.crt
+export ETCDCTL_KEY=/etc/kubernetes/pki/etcd/peer.key
+etcdctl get / --prefix --keys-only
+
