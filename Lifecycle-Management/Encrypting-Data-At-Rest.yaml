@@ -42,3 +42,6 @@ resources:
       type: DirectoryOrCreate             
 ----------------------------------------------------------------------
  ps -aux | grep kube-api | grep "encryption-provider-config"
+ 
+ --------------------for debuging when apiserver is down--------------
+ crictl pods 
