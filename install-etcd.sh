@@ -72,3 +72,4 @@ export ETCDCTL_CERT=/etc/kubernetes/pki/etcd/peer.crt
 export ETCDCTL_KEY=/etc/kubernetes/pki/etcd/peer.key
 etcdctl get / --prefix --keys-only
 etcdctl get /registry/secrets/default/my-secret
+etcdctl get /registry/configmaps/default/my-config
