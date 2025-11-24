@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-probes
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+
+      # 1) Startup Probe
+      startupProbe:
+        httpGet:
+          path: /
+          port: 80
+        failureThreshold: 30
+        periodSeconds: 5
+      # معنی:
+      # 30 بار × هر 5 ثانیه → 150 ثانیه فرصت می‌دهد تا nginx کامل بالا بیاید
+
+      # 2) Liveness Probe
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 10
+        periodSeconds: 10
+      # معنی:
+      # قبل از شروع تست 10 ثانیه صبر می‌کند، بعد هر 10 ثانیه تست زنده بودن می‌گیرد
+      # اگر Fail شود → کانتینر Restart می‌شود
+
+      # 3) Readiness Probe
+      readinessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+      # معنی:
+      # قبل از آماده شدن 5 ثانیه صبر می‌کند
+      # اگر Fail شود → پاد از Service حذف می‌شود
