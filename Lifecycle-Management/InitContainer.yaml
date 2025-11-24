@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: complex-pod
+spec:
+  # init container run first and when finish sucessfully the main will be execute
+  initContainers:
+    - name: init-db-check
+      image: busybox
+      command: ['sh', '-c', 'until nc -z mysql 3306; do sleep 2; done']
+
+  containers:
+    - name: app
+      image: nginx
+    # sider container for collect log
+    - name: sidecar-logger
+      image: busybox
+      command: ["sh", "-c", "tail -f /var/log/nginx/access.log"]
+
