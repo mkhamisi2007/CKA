@@ -1,0 +1,24 @@
+-----------------With share memory-------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-memory-pod
+spec:
+  containers:
+    - name: writer 
+      image: busybox 
+      command: ["sh", "-c", "echo 'salam az writer' > /shared/message.txt && sleep 3600"]
+      volumeMounts: # ---------> acess share volume
+        - name: shared-volume
+          mountPath: /shared
+
+    - name: reader
+      image: busybox
+      command: ["sh", "-c", "cat /shared/message.txt && sleep 3600"]
+      volumeMounts: # ---------> acess share volume
+        - name: shared-volume 
+          mountPath: /shared
+
+  volumes:
+    - name: shared-volume
+      emptyDir: {}
