@@ -40,3 +40,21 @@ spec:
       # معنی:
       # قبل از آماده شدن 5 ثانیه صبر می‌کند
       # اگر Fail شود → پاد از Service حذف می‌شود
+--------------------- type of health --------------------
+----------Http request-------------
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 80
+  periodSeconds: 10
+-------- tcp Port ----------------
+livenessProbe:
+  tcpSocket:
+    port: 3306   # MySQL
+  periodSeconds: 10
+--------- Command ----------------
+livenessProbe:
+  exec:
+    command: ["sh", "-c", "mysqladmin ping -h 127.0.0.1 || exit 1"]
+  periodSeconds: 10
+
