@@ -6,3 +6,35 @@ containers:
 - command:
   - kube-apiserver
   - --feature-gates=InPlacePodVerticalScaling=true
+------------------ For Testing ----------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resize-test
+spec:
+  containers:
+  - name: c1
+    image: nginx
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "100m"
+        memory: "128Mi"
+----------------------------------
+kubectl apply -f resize-test.yaml
+kubectl get pod resize-test -o jsonpath='{.metadata.uid}' # get pod uid for see if changed(1c7f95c0-c3a2-4ae2-a678-29dfd0a5311e)
+---
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "100m"
+    memory: "256Mi"
+------
+kubectl apply -f resize-test.yaml
+kubectl get pod resize-test -o jsonpath='{.metadata.uid}' # get pod uid for see if changed(1c7f95c0-c3a2-4ae2-a678-29dfd0a5311e)
+
+
