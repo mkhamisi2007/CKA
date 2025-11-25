@@ -1,0 +1,8 @@
+from Kubernetes version 1.27 >=
+with anabling we can increase cpu or ram without restart pod
+-----------------------------------
+nano /etc/kubernetes/manifests/kube-apiserver.yaml
+containers:
+- command:
+  - kube-apiserver
+  - --feature-gates=InPlacePodVerticalScaling=true
