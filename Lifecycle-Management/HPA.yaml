@@ -1,0 +1,48 @@
+kubectl autoscale deployment my-app \
+  --cpu-percent=50 --min=1 --max=10
+kubectl get hpa
+------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: nginx
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1        # نوع آبجکتی که قراره اسکیل بشه
+    kind: Deployment
+    name: my-app               # اسم Deployment 
+  minReplicas: 1               # حداقل تعداد پاد
+  maxReplicas: 10              # حداکثر تعداد پاد
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50   # هدف: 50٪ مصرف CPU بر اساس requests
+---
+
+
