@@ -1,3 +1,15 @@
+1.Stable Network Identity
+mydb-0
+mydb-1
+mydb-2
+dns => mydb-0.mydb-headless.default.svc.cluster.local
+2.Stable Storage
+data-mydb-0
+data-mydb-1
+data-mydb-2
+3.Ordered Operations
+pod1 => pod2 => pod3
+----------------------------------------------
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
