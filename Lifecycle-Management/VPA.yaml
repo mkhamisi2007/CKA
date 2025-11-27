@@ -1,0 +1,65 @@
+--- install-------
+git clone https://github.com/kubernetes/autoscaler.git
+cd autoscaler/vertical-pod-autoscaler
+./hack/vpa-up.sh
+kubectl get pods -n kube-system | grep vpa
+----
+vpa-admission-controller-cd698f44d-jpdgh   1/1     Running   0               3m42s
+vpa-recommender-796d45bfdf-dn4hc           1/1     Running   0               3m48s
+vpa-updater-7548dbc57d-k5hmj               1/1     Running   0               3m49s
+--- Remove -------
+./hack/vpa-down.sh
+-----------------------------------
+# vpa-demo-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpa-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vpa-demo
+  template:
+    metadata:
+      labels:
+        app: vpa-demo
+    spec:
+      containers:
+      - name: stress
+        image: vish/stress
+        args:
+        - -cpus
+        - "2"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+---
+# vpa.yaml
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: vpa-demo
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind:       Deployment
+    name:       vpa-demo
+  updatePolicy:
+    updateMode: "InPlaceOrRecreate"  # or "Recreate"
+
+
+
+
+
+
+
+
+
+
+
+
