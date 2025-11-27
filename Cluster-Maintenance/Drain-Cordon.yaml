@@ -1,0 +1,15 @@
+nano /etc/kubernetes/manifests/kube-controller-manager.yaml
+
+- --pod-eviction-timeout=2m     #===> the time that node is consider unavalable
+
+--------------------normal pod will deleted and creted in other node (Deployment,ReplicaSet,StatefulSet,Job / CronJob)-------------------------------
+kubectl drain <node-name>
+--- for other type we shoud use siwtch---------------------------------------------
+kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
+------------ Enable/Disable node(new pod will not be created) ---------------------
+kubectl cordon node
+kubectl uncordon <node>
+
+
+
+
