@@ -51,9 +51,27 @@ spec:
     name:       vpa-demo
   updatePolicy:
     updateMode: "InPlaceOrRecreate"  # or "Recreate"
-
-
-
+--------------------------------------
+kubectl get vpa
+kubectl describe vpa vpa-demo
+--
+...
+  Recommendation:
+    Container Recommendations:
+      Container Name:  stress
+      Lower Bound:
+        Cpu:     458m
+        Memory:  250Mi
+      Target:
+        Cpu:     587m
+        Memory:  250Mi
+      Uncapped Target:
+        Cpu:     587m
+        Memory:  250Mi
+      Upper Bound:
+        Cpu:     78017m
+        Memory:  1528446564
+Events:          <none>
 
 
 
