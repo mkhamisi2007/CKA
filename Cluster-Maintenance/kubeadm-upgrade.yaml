@@ -1,4 +1,9 @@
 ---------------Master---------------------
+apt-cache madison kubeadm 
+   kubeadm | 1.34.2-1.1 | https://pkgs.k8s.io/core:/stable:/v1.34/deb  Packages
+   kubeadm | 1.34.1-1.1 | https://pkgs.k8s.io/core:/stable:/v1.34/deb  Packages
+   kubeadm | 1.34.0-1.1 | https://pkgs.k8s.io/core:/stable:/v1.34/deb  Packages
+---
 kubeadm upgrade plan
 apt-get upgrade -y kubeadm=1.12.0-00
 kubeadm upgrade apply v1.12.0
