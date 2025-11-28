@@ -21,7 +21,7 @@ kubectl uncordon <node> #------> if execute drain
 ---------------Worker---------------------
 apt-mark unhold kubelet kubeadm kubectl
 apt-get upgrade -y kubeadm="1.34.0-*"
-kubeadm upgrade node config 
+kubeadm upgrade node
 kubectl drain <node-name> --ignore-daemonsets --delete-emptydir-data #----> will executed in Control Plane
 apt-get install kubelet=1.34.0-1.1
 systemctl daemon-reload 
