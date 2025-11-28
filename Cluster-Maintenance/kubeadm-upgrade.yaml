@@ -8,7 +8,7 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | gpg --dearm
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
 apt update
 ---------------Master---------------------
-kubectl drain <control-plane-node> --ignore-daemonsets --delete-emptydir-data #---------> if pods exist 
+kubectl drain <control-plane-node> --ignore-daemonsets --delete-emptydir-data #---------> if pods exist(No Taint)
 apt-mark unhold kubelet kubeadm kubectl
 kubeadm upgrade plan
 apt-get upgrade -y kubeadm=1.34.0-00
