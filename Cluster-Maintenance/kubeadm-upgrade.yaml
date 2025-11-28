@@ -1,0 +1,5 @@
+kubeadm upgrade plan
+apt-get upgrade -y kubeadm=1.12.0-00
+kubeadm upgrade apply v1.12.0
+apt-get upgrade -y kubelet=1.12.0-00
+systemctl restart kubelet
