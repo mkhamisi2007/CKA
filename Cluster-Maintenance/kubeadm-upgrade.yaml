@@ -16,6 +16,7 @@ kubeadm upgrade apply v1.34.0
 apt-get upgrade -y kubelet=1.34.0-00
 systemctl restart kubelet
 apt-mark hold kubelet kubeadm kubectl
+kubectl uncordon <node> #------> if execute drain
 ---------------Worker---------------------
 kubectl drain <node-name> --ignore-daemonsets --delete-emptydir-data
 apt-mark unhold kubelet kubeadm kubectl
