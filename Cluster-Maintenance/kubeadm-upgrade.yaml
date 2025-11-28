@@ -7,21 +7,23 @@ apt-cache madison kubeadm
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.34/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
 apt update
-apt-get install -y kubelet="1.34.0-*" kubectl="1.34.0-*" kubeadm="1.34.0-*"
-apt-mark hold kubelet kubeadm kubectl
 ---------------Master---------------------
+apt-mark unhold kubelet kubeadm kubectl
 kubeadm upgrade plan
 apt-get upgrade -y kubeadm=1.12.0-00
 kubeadm upgrade apply v1.12.0
 apt-get upgrade -y kubelet=1.12.0-00
 systemctl restart kubelet
+apt-mark hold kubelet kubeadm kubectl
 ---------------Worker---------------------
 kubectl drain <node-name>
+apt-mark unhold kubelet kubeadm kubectl
 apt-get upgrade -y kubeadm=1.12.0-00
 apt-get upgrade -y kubelet=1.12.0-00
 kubeadm upgrade node config --kubelet-version v1.12.0
 systemctl restart kubelet
 kubectl uncordon <node-name>
+apt-mark hold kubelet kubeadm kubectl
 ------------------Lock version update -----------------------
 apt-mark showhold
 apt-mark hold kubelet kubeadm kubectl
