@@ -16,7 +16,7 @@ apt-get upgrade -y kubelet=1.34.0-00
 systemctl restart kubelet
 apt-mark hold kubelet kubeadm kubectl
 ---------------Worker---------------------
-kubectl drain <node-name>
+kubectl drain <node-name> --ignore-daemonsets
 apt-mark unhold kubelet kubeadm kubectl
 apt-get upgrade -y kubeadm=1.34.0-00
 kubeadm upgrade node config --kubelet-version v1.34.0
