@@ -18,13 +18,14 @@ systemctl restart kubelet
 apt-mark hold kubelet kubeadm kubectl
 kubectl uncordon <node> #------> if execute drain
 ---------------Worker---------------------
-kubectl drain <node-name> --ignore-daemonsets --delete-emptydir-data
 apt-mark unhold kubelet kubeadm kubectl
 apt-get upgrade -y kubeadm=1.34.0-00
-kubeadm upgrade node config --kubelet-version v1.34.0
+kubeadm upgrade node config 
+kubectl drain <node-name> --ignore-daemonsets --delete-emptydir-data #----> will executed in Control Plane
 apt-get upgrade -y kubelet=1.34.0-00
+systemctl daemon-reload 
 systemctl restart kubelet
-kubectl uncordon <node-name>
+kubectl uncordon <node-name> #----> will executed in Control Plane
 apt-mark hold kubelet kubeadm kubectl
 ------------------Lock version update -----------------------
 apt-mark showhold
