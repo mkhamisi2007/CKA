@@ -37,3 +37,50 @@ etcdctl snapshot restore etcd-snapshot.db
         }
     ]
 }
+----
+aws s3api create-bucket \
+  --bucket velero-uni-backups \
+  --region eu-west-1 \
+  --create-bucket-configuration LocationConstraint=eu-west-1
+---
+wget https://github.com/vmware-tanzu/velero/releases/download/v1.17.1/velero-v1.17.1-linux-amd64.tar.gz
+tar -xvf velero-v1.17.1-linux-amd64.tar.gz
+mv velero-v1.17.1-linux-amd64/velero /usr/local/bin/
+velero version
+---
+nano credentials-velero
+  [default]
+  aws_access_key_id = YOUR_ACCESS_KEY_ID
+  aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
+----
+velero install \
+  --provider aws \
+  --plugins velero/velero-plugin-for-aws:v1.8.0 \
+  --bucket velero-uni-backups \
+  --secret-file ./credentials-velero \
+  --backup-location-config region=us-east-1,s3ForcePathStyle=true,s3Url=https://s3.us-east-1.amazonaws.com \
+  --use-node-agent \
+  --default-volumes-to-fs-backup \
+  --wait
+velero version
+  Client:
+        Version: v1.17.1
+        Git commit: 94f64639cee09c5caaa65b65ab5f42175f41c101
+  Server:
+        Version: v1.17.1
+-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
