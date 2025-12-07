@@ -1,0 +1,39 @@
+---------------------------Manifests-----------------------------
+kubectl get all --all-namespaces -o yaml > resources.yaml
+# OR
+kubectl get $(kubectl api-resources --namespaced=true -o name) \
+  --all-namespaces -o yaml > full-backup.yaml
+---------------------------etcd(DataBase)------------------------
+kubectl exec -it -n kube-system etcd-k8n-master -- sh
+ETCDCTL_API=3 
+etcdctl snapshot save /opt/backup/etcd-snapshot.db \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key
+----
+ETCDCTL_API=3 
+etcdctl snapshot restore etcd-snapshot.db
+------------------------Velero----------------------------------
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VeleroPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeVolumes",
+                "ec2:DescribeSnapshots",
+                "ec2:CreateTags",
+                "ec2:CreateVolume",
+                "ec2:CreateSnapshot",
+                "ec2:DeleteSnapshot",
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject",
+                "s3:ListBucket"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
