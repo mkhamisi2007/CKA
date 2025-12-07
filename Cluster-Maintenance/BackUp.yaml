@@ -15,6 +15,7 @@ etcdctl snapshot save /opt/backup/etcd-snapshot.db \
 ETCDCTL_API=3 
 etcdctl snapshot restore etcd-snapshot.db
 ------------------------Velero----------------------------------
+# create IAM User in AWS and create Credential for it(ACCESS_KEY & SECRET_ACCESS) whith the below policy
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -37,12 +38,12 @@ etcdctl snapshot restore etcd-snapshot.db
         }
     ]
 }
-----
+---- create a bucket---
 aws s3api create-bucket \
   --bucket velero-uni-backups \
   --region eu-west-1 \
   --create-bucket-configuration LocationConstraint=eu-west-1
----
+---- install velero in kubernetes cluster----
 wget https://github.com/vmware-tanzu/velero/releases/download/v1.17.1/velero-v1.17.1-linux-amd64.tar.gz
 tar -xvf velero-v1.17.1-linux-amd64.tar.gz
 mv velero-v1.17.1-linux-amd64/velero /usr/local/bin/
@@ -68,7 +69,7 @@ velero version
         Git commit: 94f64639cee09c5caaa65b65ab5f42175f41c101
   Server:
         Version: v1.17.1
------
+------- ready to make backup-------------
 velero backup-location get
   NAME      PROVIDER   BUCKET/PREFIX             PHASE       LAST VALIDATED                  ACCESS MODE   DEFAULT
   default   aws        velero-uni-backups        Available   2025-12-07 18:02:19 +0100 CET   ReadWrite     true
@@ -87,7 +88,7 @@ velero schedule create weekly-backup \
     --default-volumes-to-fs-backup
 velero schedule get
 velero schedule delete weekly-backup
--------------
+------------- unistall velero ----------
 velero uninstall
 
 
