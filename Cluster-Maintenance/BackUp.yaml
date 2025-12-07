@@ -69,11 +69,25 @@ velero version
   Server:
         Version: v1.17.1
 -----
+velero backup-location get
+  NAME      PROVIDER   BUCKET/PREFIX             PHASE       LAST VALIDATED                  ACCESS MODE   DEFAULT
+  default   aws        velero-uni-backups        Available   2025-12-07 18:02:19 +0100 CET   ReadWrite     true
 
-
-
-
-
+velero backup create test-backup --include-namespaces default
+velero backup get
+  root@k8n-master:~# velero backup get
+  NAME          STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+  test-backup   Completed   0        0          2025-12-07 18:01:15 +0100 CET   29d       default            <none>
+velero restore create --from-backup test-backup
+velero restore get
+---
+velero schedule create weekly-backup \
+    --schedule="0 2 * * 1" \
+    --ttl=720h \
+    --include-namespaces="*" \
+    --default-volumes-to-fs-backup
+velero schedule get
+velero schedule delete weekly-backup
 
 
 
