@@ -14,4 +14,8 @@ sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
     hostPath:
       path: /etc/kubernetes/auth
       type: DirectoryOrCreate
+  ----------------------------------------------------
+kubectl --server=https://172.28.101.197:6443 --token=b9b2f6f3c1d24d7e9c8a1f0a2b3c4d5e --insecure-skip-tls-verify=true get --raw /version
+kubectl --server=https://172.28.101.197:6443 --token=b9b2f6f3c1d24d7e9c8a1f0a2b3c4d5e --insecure-skip-tls-verify=true  get pods
+  error because need RBAC acess
 
