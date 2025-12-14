@@ -38,11 +38,11 @@ metadata:
   namespace: default
 subjects:
 - kind: User
-  name: win-user
+  name: win-user #------------------------> link with user
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
-  name: win-user-pods-read
+  name: win-user-pods-read  #-------------> link with Role
   apiGroup: rbac.authorization.k8s.io
 ----------------------------------------------------
 kubectl --server=https://172.28.101.197:6443 --token=b9b2f5f3c1d24d7e7c8a1f0a2b3c4d2e --insecure-skip-tls-verify=true get --raw /version
