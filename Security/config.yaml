@@ -25,6 +25,24 @@ contexts:
     namespace: default             # (اختیاری)
 
 current-context: win-context       # (context فعال برای kubectl)
+--- tested sample file-------
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tL... #-------------> base64 -w0 /etc/kubernetes/pki/ca.crt
+    server: https://172.28.200.197:6443 #-------------> kubectl cluster-info
+  name: uni-cluster
+contexts:
+- name: win-context
+  context:
+    cluster: uni-cluster
+    user: win-user #-------------> /etc/kubernetes/auth/token.csv
+users:
+- name: win-user 
+  user:
+    token: b9b2f6f3c1d.... #-------------> /etc/kubernetes/auth/token.csv
+current-context: win-context
 ------------------------------------Client Certificate-------------------------------------------
 openssl genrsa -out user.key 2048
 openssl req -new -key user.key -out user.csr \
