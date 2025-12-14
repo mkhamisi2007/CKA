@@ -21,7 +21,6 @@ sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
       path: /etc/kubernetes/auth
       type: DirectoryOrCreate
 -------- add RBAC------------
-  # win-user-pods-read.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -38,7 +37,7 @@ metadata:
   name: win-user-pods-read-binding
   namespace: default
 subjects:
-- kind: User
+- kind: User 
   name: win-user #------------------------> link with user
   apiGroup: rbac.authorization.k8s.io
 roleRef:
