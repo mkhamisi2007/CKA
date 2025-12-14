@@ -1,0 +1,70 @@
+kubectl --kubeconfig=config get nodes
+------------------------------------ Token---------------------------------------------------
+apiVersion: v1
+kind: Config
+clusters:
+- name: uni-cluster               # (نام دلخواه کلاستر)
+  cluster:
+    server: https://172.28.101.197:6443
+    # kubectl cluster-info
+    certificate-authority-data: <BASE64_CA_CRT>
+    # Server : sudo cat /etc/kubernetes/pki/ca.crt
+    # base64 -w0 /etc/kubernetes/pki/ca.crt
+users:
+- name: win-user                  # (باید دقیقاً با username در token.csv یکی باشد)
+  user:
+    token: b9b2f6f8c1d24d7e9c8a1f0a2b3c4d4e
+    # /etc/kubernetes/auth/token.csv
+    # token,username,uid,group
+    # b9b2f6...,win-user,10001,win-group
+contexts:
+- name: win-context               # (نام دلخواه context)
+  context:
+    cluster: uni-cluster           # (اشاره به clusters.name)
+    user: win-user                 # (اشاره به users.name)
+    namespace: default             # (اختیاری)
+
+current-context: win-context       # (context فعال برای kubectl)
+------------------------------------Client Certificate-------------------------------------------
+openssl genrsa -out user.key 2048
+openssl req -new -key user.key -out user.csr \
+  -subj "/CN=win-user/O=win-group"
+openssl x509 -req -in user.csr \
+  -CA /etc/kubernetes/pki/ca.crt \
+  -CAkey /etc/kubernetes/pki/ca.key \
+  -CAcreateserial \
+  -out user.crt \
+  -days 365
+---
+apiVersion: v1
+kind: Config
+
+clusters:
+- name: uni-cluster
+  cluster:
+    server: https://172.28.101.197:6443
+    # kubectl cluster-info
+    certificate-authority-data: <BASE64_CA_CRT>
+    # sudo cat /etc/kubernetes/pki/ca.crt
+    # base64 -w0 /etc/kubernetes/pki/ca.crt
+users:
+- name: win-user
+  # (نام کاربر – از CN گواهی خوانده می‌شود)
+  user:
+    client-certificate-data: <BASE64_USER_CRT>
+    # فایل user.crt که ساخته‌ای
+    # base64 -w0 user.crt
+
+    client-key-data: <BASE64_USER_KEY>
+    # فایل user.key
+    # base64 -w0 user.key
+
+contexts:
+- name: win-context
+  context:
+    cluster: uni-cluster     # (اشاره به clusters.name)
+    user: win-user           # (اشاره به users.name)
+    namespace: default       # (اختیاری)
+
+current-context: win-context
+
