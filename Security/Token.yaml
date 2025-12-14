@@ -1,6 +1,11 @@
 sudo mkdir -p /etc/kubernetes/auth
 sudo nano /etc/kubernetes/auth/token.csv
   b9b2f5f3c1d24d7e7c8a1f0a2b3c4d2e,win-user,10001,win-group
+  b9b2f6f3c1d24d7e9c8a1f0a2b3c4d5e,win-user,1001
+  a1c9e88f71d74b4ea9c1d12e33f9ab12,linux-user,1002
+  f03ab8d9c2e64a0b9f77e1c6aa55bb77,dev-user,1003,devs
+  ...
+  
 sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
  - --token-auth-file=/etc/kubernetes/auth/token.csv
   ...
