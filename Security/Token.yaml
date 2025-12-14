@@ -14,8 +14,33 @@ sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
     hostPath:
       path: /etc/kubernetes/auth
       type: DirectoryOrCreate
-  ----------------------------------------------------
+-------- add RBAC------------
+  # win-user-pods-read.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: win-user-pods-read
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get","list","watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: win-user-pods-read-binding
+  namespace: default
+subjects:
+- kind: User
+  name: win-user
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: win-user-pods-read
+  apiGroup: rbac.authorization.k8s.io
+----------------------------------------------------
 kubectl --server=https://172.28.101.197:6443 --token=b9b2f5f3c1d24d7e7c8a1f0a2b3c4d2e --insecure-skip-tls-verify=true get --raw /version
 kubectl --server=https://172.28.101.197:6443 --token=b9b2f5f3c1d24d7e7c8a1f0a2b3c4d2e --insecure-skip-tls-verify=true  get pods
-  error because need RBAC acess
+---> we can also create config file ---> see config.yaml
 
