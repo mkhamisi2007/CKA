@@ -1,4 +1,4 @@
-kubectl --kubeconfig=config get nodes
+kubectl --kubeconfig=myconfig get pods
 ------------------------------------ Token---------------------------------------------------
 apiVersion: v1
 kind: Config
