@@ -5,7 +5,7 @@ sudo nano /etc/kubernetes/auth/token.csv
   a1c9e88f71d74b4ea9c1d12e33f9ab12,linux-user,1002
   f03ab8d9c2e64a0b9f77e1c6aa55bb77,dev-user,1003,devs
   ...
-  <TOKEN>,<USERNAME>,<USER_UID>,<GROUPS>
+  # <TOKEN>,<USERNAME>,<USER_UID>,<GROUPS>
 
 sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
  - --token-auth-file=/etc/kubernetes/auth/token.csv
