@@ -1,0 +1,17 @@
+sudo mkdir -p /etc/kubernetes/auth
+sudo nano /etc/kubernetes/auth/token.csv
+  b9b2f5f3c1d24d7e7c8a1f0a2b3c4d2e,win-user,10001,win-group
+sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
+ - --token-auth-file=/etc/kubernetes/auth/token.csv
+  ...
+  volumeMounts:
+  - name: k8s-auth
+    mountPath: /etc/kubernetes/auth
+    readOnly: true
+    ...
+  volumes:
+  - name: k8s-auth
+    hostPath:
+      path: /etc/kubernetes/auth
+      type: DirectoryOrCreate
+
