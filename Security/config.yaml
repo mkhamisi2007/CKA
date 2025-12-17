@@ -78,7 +78,7 @@ contexts:
     namespace: default       # (اختیاری)
 
 current-context: win-context
--------------------------------------limitation put on our config file-------------------------------------------
+-------------------------------------limitation put on our config file(user)-------------------------------------------
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
