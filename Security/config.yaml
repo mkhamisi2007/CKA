@@ -121,6 +121,7 @@ kubectl apply -f jane-csr.yaml
 kubectl get csr
 kubectl certificate approve jane
 kubectl certificate deny agent-smith #----> if we did not accepted it
+kubectl delete csr agent-smith   #-----> or delete it
 kubectl get csr jane -o jsonpath='{.status.certificate}' \
   | base64 -d > jane.crt
 
