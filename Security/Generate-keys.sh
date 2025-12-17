@@ -35,3 +35,25 @@ ls /etc/kubernetes/pki/etcd/ -l
     -rw------- 1 root root 1679 nov.  28 07:32 peer.key
     -rw-r--r-- 1 root root 1204 nov.  28 07:32 server.crt
     -rw------- 1 root root 1675 nov.  28 07:32 server.key
+---------------------------------see cerificate informations --------------------------------
+openssl x509 -in /etc/kubernetes/pki/ca.crt -text -noout
+    Certificate:
+        Data:
+            Version: 3 (0x2)
+            Serial Number: 4698003399550140403 (0x4132a93367c37ff3)
+            Signature Algorithm: sha256WithRSAEncryption
+            Issuer: CN = kubernetes
+            Validity
+                Not Before: Nov 28 06:26:58 2025 GMT
+                Not After : Nov 26 06:31:58 2035 GMT
+            Subject: CN = kubernetes
+            Subject Public Key Info:
+                Public Key Algorithm: rsaEncryption
+                    Public-Key: (2048 bit)
+                    Modulus:
+                        00:ca:4b:0f:df:7a:68:ce:21:b7:ba:9d:dd:e0:06:
+                        22:ce:57:83:0b:23:81:9e:2b:de:eb:5f:07:e9:a6:
+                        62:e5:70:13:e8:39:24:be:2c:b4:aa:f4:c4:1d:eb:
+                        40:52:36:49:0d:3f:7c:7b:28:e4:4f:8e:2e:43:3d:
+                        02:b2:ec:2b:61:5b:9f:50:f9:3e:80:e0:b6:df:fb:
+                        3a:86:28:e7:fb:a5:3a:38:88:28:2c:09:a4:7c:cb
