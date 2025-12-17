@@ -67,11 +67,8 @@ clusters:
 users:
 - name: win-user #----------> -subj "/CN=win-user/O=win-group"
   user:
-    client-certificate-data: <BASE64_USER_CRT>
-    # base64 -w0 user.crt #---------->
-
-    client-key-data: <BASE64_USER_KEY>
-    # base64 -w0 user.key #---------->
+    client-certificate-data: <BASE64_USER_CRT> #----------> base64 -w0 user.crt 
+    client-key-data: <BASE64_USER_KEY> #---------->base64 -w0 user.key
 
 contexts:
 - name: win-context
