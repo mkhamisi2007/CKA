@@ -63,25 +63,21 @@ clusters:
     server: https://172.28.101.197:6443
     # kubectl cluster-info
     certificate-authority-data: <BASE64_CA_CRT>
-    # sudo cat /etc/kubernetes/pki/ca.crt
     # base64 -w0 /etc/kubernetes/pki/ca.crt
 users:
-- name: win-user
-  # (نام کاربر – از CN گواهی خوانده می‌شود)
+- name: win-user #----------> -subj "/CN=win-user/O=win-group"
   user:
     client-certificate-data: <BASE64_USER_CRT>
-    # فایل user.crt که ساخته‌ای
-    # base64 -w0 user.crt
+    # base64 -w0 user.crt #---------->
 
     client-key-data: <BASE64_USER_KEY>
-    # فایل user.key
-    # base64 -w0 user.key
+    # base64 -w0 user.key #---------->
 
 contexts:
 - name: win-context
   context:
-    cluster: uni-cluster     # (اشاره به clusters.name)
-    user: win-user           # (اشاره به users.name)
+    cluster: uni-cluster     # (  clusters.name)
+    user: win-user           # ( users.name)
     namespace: default       # (اختیاری)
 
 current-context: win-context
