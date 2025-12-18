@@ -2,6 +2,11 @@ sudo mkdir -p /etc/kubernetes/abac
 sudo nano /etc/kubernetes/abac/policy.jsonl
   {"user":"system:serviceaccount:dev:my-sa","namespace":"dev","resource":"pods","apiGroup":"","verb":"list"}
   {"user":"system:serviceaccount:dev:my-sa","namespace":"dev","resource":"pods","apiGroup":"","verb":"get"}
+  # OR
+  {"user":"dev-user","namespace":"*","resource":"pods","apiGroup":"","verb":"list"}
+  {"user":"dev-user","namespace":"*","resource":"pods","apiGroup":"","verb":"get"}
+  {"group":"dev","namespace":"*","resource":"pods","apiGroup":"","verb":"get"}
+
 sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
   - --authorization-mode=Node,RBAC,ABAC
   - --authorization-policy-file=/etc/kubernetes/abac/policy.jsonl
