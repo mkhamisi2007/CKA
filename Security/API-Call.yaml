@@ -6,11 +6,11 @@ kubectl config view --raw --minify \
   -o jsonpath='{.users[0].user.client-key-data}' \
   | base64 -d > admin.key
 
-curl https://172.20.101.200:6443/api/v1/pods \
+curl https://172.20.101.200:6443/api/v1/pods \  #----> list all pods
     --cacert /etc/kubernetes/pki/ca.crt 
     --cert admin.crt \
     --key admin.key
-curl https://172.20.101.200:6443/version --cacert /etc/kubernetes/pki/ca.crt --cert admin.crt --key admin.key
+curl https://172.20.101.200:6443/version --cacert /etc/kubernetes/pki/ca.crt --cert admin.crt --key admin.key  #----> show you version
   {
     "major": "1",
     "minor": "34",
@@ -26,3 +26,24 @@ curl https://172.20.101.200:6443/version --cacert /etc/kubernetes/pki/ca.crt --c
     "compiler": "gc",
     "platform": "linux/amd64"
   }
+curl https://172.28.101.197:6443/ --cacert /etc/kubernetes/pki/ca.crt --cert admin.crt --key admin.key  #----> list all api
+  {
+    "paths": [
+      "/.well-known/openid-configuration",
+      "/api",
+      "/api/v1",
+      "/apis",
+      "/apis/",
+      "/apis/admissionregistration.k8s.io",
+      "/apis/admissionregistration.k8s.io/v1",
+      "/apis/apiextensions.k8s.io",
+      "/apis/apiextensions.k8s.io/v1",
+      "/apis/apiregistration.k8s.io",
+      "/apis/apiregistration.k8s.io/v1",
+      "/apis/apps",
+      "/apis/apps/v1",
+      "/apis/authentication.k8s.io",
+      "/apis/authentication.k8s.io/v1",
+      "/apis/authorization.k8s.io",
+      "/apis/authorization.k8s.io/v1",
+      ...
