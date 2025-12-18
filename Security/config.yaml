@@ -17,7 +17,7 @@ users:
     # /etc/kubernetes/auth/token.csv
     # token,username,uid,group
     # b9b2f6...,win-user,10001,win-group
-contexts:
+contexts: 
 - name: win-context               # (نام دلخواه context)
   context:
     cluster: uni-cluster           # (اشاره به clusters.name)
@@ -33,7 +33,7 @@ clusters:
     certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tL... #-------------> base64 -w0 /etc/kubernetes/pki/ca.crt
     server: https://172.28.200.197:6443 #-------------> kubectl cluster-info
   name: uni-cluster
-contexts:
+contexts: #---> for link user part and cluster part
 - name: win-context
   context:
     cluster: uni-cluster
@@ -70,11 +70,11 @@ users:
     client-certificate-data: <BASE64_USER_CRT> #----------> base64 -w0 user.crt 
     client-key-data: <BASE64_USER_KEY> #---------->base64 -w0 user.key
 
-contexts:
+contexts: #---> for link [users] part and [clusters] part
 - name: win-context
   context:
-    cluster: uni-cluster     # (  clusters.name)
-    user: win-user           # ( users.name)
+    cluster: uni-cluster     #---> [clusters] part
+    user: win-user           #---> [users] part
     namespace: default       # (اختیاری)
 
 current-context: win-context
