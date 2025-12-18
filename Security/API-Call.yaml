@@ -1,0 +1,28 @@
+kubectl config view --raw --minify \
+  -o jsonpath='{.users[0].user.client-certificate-data}' \
+  | base64 -d > admin.crt
+
+kubectl config view --raw --minify \
+  -o jsonpath='{.users[0].user.client-key-data}' \
+  | base64 -d > admin.key
+
+curl https://172.20.101.200:6443/api/v1/pods \
+    --cacert /etc/kubernetes/pki/ca.crt 
+    --cert admin.crt \
+    --key admin.key
+curl https://172.20.101.200:6443/version --cacert /etc/kubernetes/pki/ca.crt --cert admin.crt --key admin.key
+  {
+    "major": "1",
+    "minor": "34",
+    "emulationMajor": "1",
+    "emulationMinor": "34",
+    "minCompatibilityMajor": "1",
+    "minCompatibilityMinor": "33",
+    "gitVersion": "v1.34.2",
+    "gitCommit": "8cc511e399b929453cd98ae65b419c3cc227ec79",
+    "gitTreeState": "clean",
+    "buildDate": "2025-11-11T19:00:39Z",
+    "goVersion": "go1.24.9",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  }
