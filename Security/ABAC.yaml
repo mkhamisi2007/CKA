@@ -1,3 +1,5 @@
+***Kubernetes ABAC authorizes requests based on request attributes (user, verb, resource, namespace), not on labels or tags like cloud IAM ABAC.
+------------------------------------------------------------------------------
 sudo mkdir -p /etc/kubernetes/abac
 sudo nano /etc/kubernetes/abac/policy.jsonl
   {"user":"system:serviceaccount:dev:my-sa","namespace":"dev","resource":"pods","apiGroup":"","verb":"list"}
@@ -20,3 +22,14 @@ sudo nano /etc/kubernetes/manifests/kube-apiserver.yaml
       hostPath:
         path: /etc/kubernetes/abac
         type: DirectoryOrCreate
+------------------------------------------------------------
+openssl genrsa -out dev-user.key 2048
+openssl req -new -key dev-user.key -out dev-user.csr \
+  -subj "/CN=dev-user"
+openssl x509 -req -in dev-user.csr \
+  -CA /etc/kubernetes/pki/ca.crt \
+  -CAkey /etc/kubernetes/pki/ca.key \
+  -CAcreateserial \
+  -out dev-user.crt \
+  -days 365
+#====> create config file for access
