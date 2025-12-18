@@ -2,6 +2,7 @@ kubectl get role
 kubectl describe role win-user-pods-read
 kubectl get rolebinding
 kubectl describe rolebinding win-user-pods-read
+kubectl auth can-i create pod #-----> for check permission
 ----------------------------------------
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
