@@ -47,3 +47,8 @@ curl https://172.28.101.197:6443/ --cacert /etc/kubernetes/pki/ca.crt --cert adm
       "/apis/authorization.k8s.io",
       "/apis/authorization.k8s.io/v1",
       ...
+-------------------------------------use proxy(port 8001) without certification----------------------------------------------------
+kubectl proxy 
+# OR
+kubectl proxy --address='0.0.0.0' --accept-hosts='.*'
+curl http://127.0.0.1:8001/version
