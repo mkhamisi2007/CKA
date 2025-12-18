@@ -30,3 +30,26 @@ roleRef:
   kind: Role
   name: pod-reader
   apiGroup: rbac.authorization.k8s.io
+---------------------------------------create managed certificate------------------------------------------------
+openssl genrsa -out jane.key 2048
+openssl req -new -key jane.key -out jane.csr \
+  -subj "/CN=jane"
+cat jane.csr | base64 | tr -d '\n'
+---
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: jane
+spec:
+  request: <BASE64_CSR> #------------> cat jane.csr | base64 | tr -d '\n'
+  signerName: kubernetes.io/kube-apiserver-client
+  usages:
+  - client auth
+---
+kubectl apply -f jane-csr.yaml
+kubectl get csr
+kubectl certificate approve jane
+kubectl certificate deny jane #----> if we did not accepted it
+kubectl delete csr jane   #-----> or delete it
+kubectl get csr jane -o jsonpath='{.status.certificate}' \
+  | base64 -d > jane.crt
