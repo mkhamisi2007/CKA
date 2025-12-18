@@ -17,10 +17,10 @@ metadata:
   name: dev-user-binding
   namespace: dev
 subjects:
-- kind: User  #--------> link to user
+- kind: User  #--------> link to user ==> [User | Group | ServiceAccount]
   name: dev-user
 roleRef:
-  kind: Role
+  kind: Role  #------> [ Role | ClusterRole]
   name: developer #-----> role name
   apiGroup: rbac.authorization.k8s.io
 ---------------------------rolebinding to ServiceAccount------------------------------
@@ -30,11 +30,11 @@ metadata:
   name: pod-binding
   namespace: dev
 subjects:
-- kind: ServiceAccount #--------> link to serviceaccount
+- kind: ServiceAccount #--------> link to serviceaccount ==> [User | Group | ServiceAccount]
   name: my-sa
   namespace: dev
 roleRef:
-  kind: Role
+  kind: Role #------> [ Role | ClusterRole]
   name: developer #-----> role name
   apiGroup: rbac.authorization.k8s.io
 
