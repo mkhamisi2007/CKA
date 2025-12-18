@@ -17,11 +17,11 @@ users:
     # /etc/kubernetes/auth/token.csv
     # token,username,uid,group
     # b9b2f6...,win-user,10001,win-group
-contexts: 
+contexts: #---> for link [users] part and [clusters] part
 - name: win-context               # (نام دلخواه context)
   context:
-    cluster: uni-cluster           # (اشاره به clusters.name)
-    user: win-user                 # (اشاره به users.name)
+    cluster: uni-cluster           #---> [clusters] part
+    user: win-user                 #---> [users] part
     namespace: default             # (اختیاری)
 
 current-context: win-context       # (context فعال برای kubectl)
