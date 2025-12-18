@@ -2,6 +2,8 @@ kubectl config -h
 kubectl config view
 kubectl --kubeconfig=myconfig get pods
 kubectl config use-context prod-context
+export KUBECONFIG=/root/my-kube-config  #----> for change default config file
+source ~/.bashrc
 ------------------------------------ Token---------------------------------------------------
 apiVersion: v1
 kind: Config
