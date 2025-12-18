@@ -10,7 +10,7 @@ rules:
 - apiGroups: [""]
   resources: ["configmaps"]
   verbs: ["create"]
----------------------------rolebinding to user------------------------------
+---------------------------rolebinding to User------------------------------
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -32,7 +32,7 @@ metadata:
 subjects:
 - kind: ServiceAccount #--------> link to serviceaccount ==> [User | Group | ServiceAccount]
   name: my-sa
-  namespace: dev
+  namespace: dev #----------> <only-for-ServiceAccount>
 roleRef:
   kind: Role #------> [ Role | ClusterRole]
   name: developer #-----> role name
