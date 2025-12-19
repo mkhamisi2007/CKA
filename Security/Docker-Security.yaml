@@ -1,7 +1,13 @@
---------------with root(default)----------
+--------------with root(default)---------------------
 docker run ubuntu
---------------with id of user------------
+--------------with id of user-------------------------
 docker run --user=1001 ubuntu sleep 3600
-------------Dockerfile-------------------
+------------Dockerfile--------------------------------
 FROM ubuntu
 USER 1000
+-----------------use Capability------------------------
+/usr/include/linux/capability.h
+---
+docker run --cap-add NET_ADMIN ubuntu
+docker run --cap-drop NET_RAW ubuntu
+docker run --privileged ubuntu #---> high risk
