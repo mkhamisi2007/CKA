@@ -10,4 +10,7 @@ USER 1000
 ---
 docker run --cap-add NET_ADMIN ubuntu
 docker run --cap-drop NET_RAW ubuntu
+docker run --cap-drop NET_RAW --cap-drop NET_ADMIN ubuntu
+docker run --cap-drop ALL ubuntu
+docker run --cap-drop ALL --cap-add NET_BIND_SERVICE ubuntu
 docker run --privileged ubuntu #---> high risk
