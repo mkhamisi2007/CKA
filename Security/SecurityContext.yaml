@@ -21,7 +21,7 @@ spec:
   securityContext:  #----> pod level
     runAsUser: 1000
     runAsGroup: 3000
-    fsGroup: 2000
+    fsGroup: 2000 #-----> File System Group(PVC / NFS / EBS)
   containers:
     - name: ubuntu
       image: ubuntu
