@@ -1,0 +1,7 @@
+--------------with root(default)----------
+docker run ubuntu
+--------------with id of user------------
+docker run --user=1001 ubuntu sleep 3600
+------------Dockerfile-------------------
+FROM ubuntu
+USER 1000
