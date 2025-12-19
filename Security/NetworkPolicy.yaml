@@ -60,6 +60,10 @@ spec:
       namespaceSelector: #--->  if we want limit to special namespace
         matchLabels:
           kubernetes.io/metadata.name: default #---> we can see all lable ==> kubectl get ns default --show-labels
+      #----- optional - accept from ip-----------
+      ipBlock:
+        cidr: 10.0.12.34/32
+        
     ports:
     - protocol: TCP
       port: 3306  
