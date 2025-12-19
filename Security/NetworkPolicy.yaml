@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: db-pod
+  name: db-pod 
   labels:
     app: db
 spec:
@@ -29,7 +29,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: db          #---> Apply for pod with app=db 
+      app: db          #---> Apply for pod with app=db -- main pod 
   policyTypes:
   - Ingress
   ingress:  #----> ingress traffic
@@ -48,7 +48,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: api      #---> Apply for pod with app=api 
+      app: api      #---> Apply for pod with app=api -- main pod
   policyTypes:
   - Egress
   egress:  #----> egress traffic
@@ -56,6 +56,10 @@ spec:
     - podSelector:
         matchLabels:
           app: db   #---> send traffic to pod with app=db 
+      #----- optinal - limit on namespace----
+      namespaceSelector: #--->  if we want limit to special namespace
+        matchLabels:
+          kubernetes.io/metadata.name: default
     ports:
     - protocol: TCP
       port: 3306  
