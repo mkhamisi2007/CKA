@@ -2,11 +2,11 @@
 docker login private-registry.io
 docker run private-registry.io/apps/internal-app
 ----------------image credential for kubernetes------------------------------
-kubectl create secret docker-registry regcred \
-  --docker-server=private-registry.io \
-  --docker-username=registry-user \
-  --docker-password=registry-password \
-  --docker-email=registry-user@org.com
+kubectl create secret docker-registry regcred 
+  --docker-server="https://index.docker.io/v1/" \ #----> Or private registery
+  --docker-username=mkhamisi2007 \
+  --docker-password="*****" \
+  --docker-email=m_khamisi_2007@yahoo.com \
 ------------------- OR ---------------------
 docker login
 ---
