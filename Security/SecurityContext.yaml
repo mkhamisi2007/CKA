@@ -39,7 +39,7 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
-        allowPrivilegeEscalation: false
+        allowPrivilegeEscalation: false #-----> prevents processes in a container from gaining additional privileges
         capabilities: #------> we can add/remove capabilities
           drop:
             - ALL
