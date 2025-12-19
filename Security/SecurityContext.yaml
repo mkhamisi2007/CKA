@@ -11,7 +11,7 @@ spec:
       securityContext: #----> container level
         runAsUser: 1000
         capabilities: #----> capabilities can only be configured at the container level
-          add: ["MAC_ADMIN"]
+          add: ["SYS_TIME", "NET_ADMIN"]
 -------------------------Pod level-----------------------------
 apiVersion: v1
 kind: Pod
