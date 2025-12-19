@@ -56,10 +56,10 @@ spec:
     - podSelector:
         matchLabels:
           app: db   #---> send traffic to pod with app=db 
-      #----- optinal - limit on namespace----
+      #----- optinal - limit on namespace----> kubectl label namespace default kubernetes.io/metadata.name=deafult
       namespaceSelector: #--->  if we want limit to special namespace
         matchLabels:
-          kubernetes.io/metadata.name: default
+          kubernetes.io/metadata.name: default #---> we can see all lable ==> kubectl get ns default --show-labels
     ports:
     - protocol: TCP
       port: 3306  
