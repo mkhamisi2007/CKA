@@ -21,7 +21,7 @@ spec:
   containers:
   - name: api
     image: nginx
----
+-------------------------------------Ingress------------------------------------
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -40,3 +40,22 @@ spec:
     ports:
     - protocol: TCP
       port: 3306
+--------------------------------Egress-----------------------------------------
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-egress-to-db
+spec:
+  podSelector:
+    matchLabels:
+      app: api      #---> Apply for pod with app=api 
+  policyTypes:
+  - Egress
+  egress:  #----> egress traffic
+  - to:
+    - podSelector:
+        matchLabels:
+          app: db   #---> send traffic to pod with app=db 
+    ports:
+    - protocol: TCP
+      port: 3306  
