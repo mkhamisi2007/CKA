@@ -10,7 +10,7 @@ spec:
       command: ["sleep", "3600"]
       securityContext: #----> container level
         runAsUser: 1000
-        capabilities:
+        capabilities: #----> capabilities can only be configured at the container level
           add: ["MAC_ADMIN"]
 -------------------------Pod level-----------------------------
 apiVersion: v1
