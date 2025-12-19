@@ -1,0 +1,37 @@
+----------------image credential for docker----------------------------------
+docker login private-registry.io
+docker run private-registry.io/apps/internal-app
+----------------image credential for kubernetes------------------------------
+kubectl create secret docker-registry regcred \
+  --docker-server=private-registry.io \
+  --docker-username=registry-user \
+  --docker-password=registry-password \
+  --docker-email=registry-user@org.com
+------------------- OR ---------------------
+docker login
+---
+kubectl create secret generic regcred \
+  --from-file=.dockerconfigjson=$HOME/.docker/config.json \
+  --type=kubernetes.io/dockerconfigjson
+#OR
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred #----> secret name
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: <BASE64_ENCODED_CONFIG> #-----> cat ~/.docker/config.json | base64 -w0
+-----------------------Use the credential in pod ---------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  namespace: default
+spec:
+  containers:
+    - name: nginx
+      image: private-registry.io/apps/internal-app
+      ports:
+        - containerPort: 80
+  imagePullSecrets:
+    - name: regcred #----> link it with secret name
