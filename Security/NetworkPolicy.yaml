@@ -1,3 +1,5 @@
+Not supported for Flannel or AWS EKS
+-----------------------------------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
@@ -64,6 +66,13 @@ spec:
       ipBlock:
         cidr: 10.0.12.34/32
         
+      #------- OR---------------
+      # - namespaceSelector: ...
+      # - ipBlock: ...
+      #------- AND---------------
+      # - namespaceSelector: ...
+      #   ipBlock: ...
+      
     ports:
     - protocol: TCP
       port: 3306  
