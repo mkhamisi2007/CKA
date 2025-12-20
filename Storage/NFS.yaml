@@ -9,13 +9,48 @@ nano /etc/exports
 systemctl restart nfs-kernel-server
 systemctl status nfs-kernel-server
 -------------------------------Client(kubernetes control plane & nodes)-----------------------------------
-apt install nfs-common
-showmount --export 192.168.174.128
-mount 192.168.174.128:/exports/backup /mnt/nfs/backup
-apt install autofs
-nano /etc/auto.master
-  /mnt/nfs /etc/auto.nfs --ghost --timeout=60
-nano /etc/auto.nfs
-  backup -fstype=nfs4,rw 192.168.174.128:/exports/backup
-systemctl restart autofs
-systemctl status autofs
+apt install nfs-common -y
+--------------------------------use it--------------------------------------------------------------------
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.174.128 #---> server ip
+    path: /exports/backup
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-using-nfs
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: ["sh", "-c", "ls /data && sleep 3600"]
+    volumeMounts:
+    - mountPath: /data
+      name: shared-volume
+
+  volumes:
+  - name: shared-volume
+    persistentVolumeClaim: #----> we can now use it in our pod
+      claimName: nfs-pvc
+
