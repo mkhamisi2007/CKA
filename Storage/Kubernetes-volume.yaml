@@ -14,7 +14,7 @@ spec:
 
   volumes:
   - name: my-volume
-    emptyDir: {}
+    emptyDir: {}  #---> temporary storage that exists only for the lifetime of a Pod
 --------------------------------hostPath-----------------------------------
 apiVersion: v1
 kind: Pod
@@ -31,7 +31,7 @@ spec:
 
   volumes:
   - name: host-volume
-    hostPath:
+    hostPath: #---> mounts a file or directory from the Kubernetes node
       path: /var/log
       type: Directory
 --------------------------------ConfigMap-----------------------------------
@@ -59,7 +59,7 @@ spec:
 
   volumes:
   - name: config-volume
-    configMap:
+    configMap: #----> is used to inject configuration data into containers as files or environment variables
       name: app-config
 ---------------------------------Secret----------------------------------
 apiVersion: v1
@@ -86,7 +86,7 @@ spec:
 
   volumes:
   - name: secret-volume
-    secret:
+    secret: #----> securely stores sensitive data such as passwords, tokens, or keys and exposes them to Pods
       secretName: app-secret
 -------------------------------NFS------------------------------------
 apiVersion: v1
@@ -104,7 +104,7 @@ spec:
 
   volumes:
   - name: nfs-volume
-    nfs:
+    nfs: #----> allows Pods to share data using a remote Network File System across multiple nodes
       server: 10.0.0.10
       path: /exports
 --------------------------------PersistentVolume-----------------------------------
