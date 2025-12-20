@@ -1,0 +1,15 @@
+export ROOK_VERSION="v1.18.8"
+
+git clone --single-branch --branch "${ROOK_VERSION}" https://github.com/rook/rook.git
+cd rook/deploy/examples
+
+kubectl apply -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml
+kubectl -n rook-ceph get pods
+------------------------------------
+
+
+
+
+
+
+
