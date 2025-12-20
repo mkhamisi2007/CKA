@@ -1,0 +1,21 @@
+-----------------------------Server NFS(192.168.174.128)--------------------------------
+mkdir /exports
+cd /exports/
+mkdir backup
+apt install nfs-kernel-server
+systemctl status nfs-kernel-server.service
+nano /etc/exports
+  /exports/backup 192.168.174.0/255.255.255.0(rw,sync,no_root_squash)
+systemctl restart nfs-kernel-server
+systemctl status nfs-kernel-server
+-------------------------------Client(kubernetes control plane & nodes)-----------------------------------
+apt install nfs-common
+showmount --export 192.168.174.128
+mount 192.168.174.128:/exports/backup /mnt/nfs/backup
+apt install autofs
+nano /etc/auto.master
+  /mnt/nfs /etc/auto.nfs --ghost --timeout=60
+nano /etc/auto.nfs
+  backup -fstype=nfs4,rw 192.168.174.128:/exports/backup
+systemctl restart autofs
+systemctl status autofs
