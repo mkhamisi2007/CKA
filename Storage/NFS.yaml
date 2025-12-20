@@ -22,7 +22,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: 192.168.174.128 #---> server ip
-    path: /exports/backup
+    path: /exports/backup  #---> folder path in server
   persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
