@@ -1,0 +1,12 @@
+-------------------------Named Volume------------------------
+docker volume create data_volume
+docker run -v data_volume:/var/lib/mysql mysql
+#---> /var/lib/docker/volumes/data_volume
+-------------------------Anonymous Volume--------------------
+docker run -v /var/lib/mysql mysql
+#---> /var/lib/docker/volumes/3f8a2c7d.../
+------------------------Bind Mount---------------------------
+docker run -v /data/mysql:/var/lib/mysql mysql
+#  Host: /data/mysql
+#  Container: /var/lib/mysql
+
