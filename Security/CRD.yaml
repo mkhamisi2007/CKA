@@ -1,5 +1,6 @@
 https://github.com/kubernetes/sample-controller
-A CRD only defines a new resource type in Kubernetes; to make it do anything, you need a *controller (operator) — tools like *ArgoCD and *Knative are real-world examples built on CRDs plus controllers.
+A CRD only defines a new resource type in Kubernetes; to make it do anything, you need a *controller (operator) — tools like *ArgoCD and *Knative *AWS are real-world examples built on CRDs plus controllers.
+All operator: https://operatorhub.io/
 -------------------------------------------------
 kubectl get crd
 kubectl describe crd <name>
