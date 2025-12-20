@@ -4,11 +4,48 @@ git clone --single-branch --branch "${ROOK_VERSION}" https://github.com/rook/roo
 cd rook/deploy/examples
 
 kubectl apply -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml
+kubectl delete -f crds.yaml -f common.yaml -f csi-operator.yaml -f operator.yaml***********************
 kubectl -n rook-ceph get pods
-------------------------------------
+---------------------for all nodes---------------
+mkdir -p /var/lib/ceph-test
+fallocate -l 5G /var/lib/ceph-test/osd.img
+losetup -fP /var/lib/ceph-test/osd.img
+losetup -a
+lsblk
+------------------------------------------
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v19
 
+  dataDirHostPath: /var/lib/rook
 
+  mon:
+    count: 2
+    allowMultiplePerNode: false
 
+  dashboard:
+    enabled: true
+
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+    - name: "k8n-master"
+      devices:
+      - name: "loop0"  # OR "sdb" ==> /dev/sdb
+    - name: "node01"
+      devices:
+      - name: "loop0"  # OR "sdb" ==> /dev/sdb
+-----
+kubectl apply -f cluster-test-2nodes.yaml
+-----------------------------------------
+kubectl get pods -n rook-ceph
+-----------------------------------------
 
 
 
