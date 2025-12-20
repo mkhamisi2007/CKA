@@ -1,0 +1,105 @@
+NFS Dynamic Provisioning
+-------------------------------------------------------------
+sudo apt-get update
+sudo apt-get install -y nfs-common
+-------------------------------------------------------------
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-provisioner
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nfs-provisioner-sa
+  namespace: nfs-provisioner
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: nfs-provisioner-cr
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get","list","watch","create","delete"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get","list","watch","update"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create","update","patch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get","list","watch"]
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["get","list","watch","create","update","patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: nfs-provisioner-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nfs-provisioner-cr
+subjects:
+  - kind: ServiceAccount
+    name: nfs-provisioner-sa
+    namespace: nfs-provisioner
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-subdir-external-provisioner
+  namespace: nfs-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfs-subdir-external-provisioner
+  template:
+    metadata:
+      labels:
+        app: nfs-subdir-external-provisioner
+    spec:
+      serviceAccountName: nfs-provisioner-sa
+      containers:
+        - name: provisioner
+          image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+          env:
+            - name: PROVISIONER_NAME
+              value: example.com/nfs
+            - name: NFS_SERVER
+              value: "NFS_SERVER_IP"
+            - name: NFS_PATH
+              value: "/export/k8s"
+          volumeMounts:
+            - name: nfs-root
+              mountPath: /persistentvolumes
+      volumes:
+        - name: nfs-root
+          nfs:
+            server: "NFS_SERVER_IP"
+            path: "/export/k8s"
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-dynamic
+provisioner: example.com/nfs
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+---------------------------------------------------use it----------------------------------------
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-pvc
+spec:
+  storageClassName: nfs-dynamic
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
