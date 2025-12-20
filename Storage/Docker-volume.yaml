@@ -9,4 +9,11 @@ docker run -v /var/lib/mysql mysql
 docker run -v /data/mysql:/var/lib/mysql mysql
 #  Host: /data/mysql
 #  Container: /var/lib/mysql
+------------------rexray/ebs(cloud provider)-----------------
+docker run -it \
+  --name mysql \
+  --volume-driver rexray/ebs \
+  --mount src=ebs-vol,target=/var/lib/mysql \
+  mysql
+
 
