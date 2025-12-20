@@ -10,7 +10,7 @@ systemctl restart nfs-kernel-server
 systemctl status nfs-kernel-server
 -------------------------------Client(kubernetes control plane & nodes)-----------------------------------
 apt install nfs-common -y
---------------------------------use it--------------------------------------------------------------------
+--------------------------------use it in our cluster-----------------------------------------------------
 apiVersion: v1
 kind: PersistentVolume
 metadata:
