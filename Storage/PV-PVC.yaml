@@ -7,7 +7,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce  #---> ReadWriteOnce(Single-node read/write) , ReadOnlyMany(Multi-node read-only) , ReadWriteMany(Multi-node read/write) , ReadWriteOncePod(Single-pod access)
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain #----> Retain , Delete , Recycle(Deprecated)
   hostPath:
     path: /mnt/data
 ---
