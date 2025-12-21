@@ -21,7 +21,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: test-pvc
 spec:
-  storageClassName: openebs-hostpath
+  storageClassName: openebs-hostpath #---> we dont need to create PersistentVolume(PV) , it will be created automtically
   accessModes:
     - ReadWriteOnce
   resources:
