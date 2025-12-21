@@ -91,7 +91,7 @@ provisioner: example.com/nfs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
----------------------------------------------------use it----------------------------------------
+---------------------------------------------------use it(without need to create PV, it will be created automatically)----------------------------------------
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
