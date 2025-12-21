@@ -8,8 +8,8 @@ kubectl drain <node-name>
 kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
 kubectl delete node <node>
 ------------ Enable/Disable node(new pod will not be created) ---------------------
-kubectl cordon node
-kubectl uncordon <node>
+kubectl cordon node #----> disable
+kubectl uncordon <node> #----> enable
 
 
 
