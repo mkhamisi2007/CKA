@@ -10,6 +10,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain #----> Retain , Delete , Recycle(Deprecated)
   hostPath:
     path: /mnt/data
+    type: Directory #---> Directory , DirectoryOrCreate , File , FileOrCreate , Socket , CharDevice , BlockDevice
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
