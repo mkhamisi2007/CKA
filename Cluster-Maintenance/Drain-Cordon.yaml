@@ -6,6 +6,7 @@ nano /etc/kubernetes/manifests/kube-controller-manager.yaml
 kubectl drain <node-name>
 --- for other type we shoud use siwtch---------------------------------------------
 kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
+kubectl delete node <node>
 ------------ Enable/Disable node(new pod will not be created) ---------------------
 kubectl cordon node
 kubectl uncordon <node>
