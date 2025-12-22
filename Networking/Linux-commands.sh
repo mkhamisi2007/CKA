@@ -22,6 +22,7 @@ cat /proc/sys/net/ipv4/ip_forward
 
 # show port
 netstat -npl
+netstat -npa
 ---------------------------------------DNS-----------------------------------
 # local DNS (first priority)
 echo "192.168.1.115 db" >> /etc/hosts
