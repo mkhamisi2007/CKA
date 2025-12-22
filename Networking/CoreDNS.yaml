@@ -8,3 +8,7 @@ cat /etc/resolv.conf
 ----------------------Access---------------------------
 <Service-Name>.<namespace>.svc.cluster.local
 <pod-ip-with-dash>.<namespace>.pod.cluster.local
+-------------------------------------------------------
+http://<service-name>
+http://<service-name>.<namespace>
+
