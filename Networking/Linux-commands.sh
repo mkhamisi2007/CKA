@@ -19,6 +19,9 @@ ip route add 192.168.1.0/24 via 192.168.2.1
 
 # بررسی فعال بودن IP Forwarding
 cat /proc/sys/net/ipv4/ip_forward
+
+# show port
+netstat -npl
 ---------------------------------------DNS-----------------------------------
 # local DNS (first priority)
 echo "192.168.1.115 db" >> /etc/hosts
