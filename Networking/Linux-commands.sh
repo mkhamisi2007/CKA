@@ -34,3 +34,12 @@ echo "nameserver 8.8.8.8" >> /etc/resolv.conf  #---> internet DNS server
 # search in /etc/resolv.conf
 echo "search dev.example.com example.com" >> /etc/resolv.conf
 ping api #---> ping api.dev.example.com , ping api.example.com
+
+# opthion in /etc/resolv.conf
+options edns0 trust-ad
+# edns0 ===> Use modern DNS
+# trust-ad ===> trust the response if it is verified by DNSSEC
+
+
+
+
