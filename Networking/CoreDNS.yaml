@@ -1,0 +1,10 @@
+kubectl -n kube-system get configmap coredns -o yaml
+kubectl get svc -n kube-system kube-dns
+------------------------inside pod---------------------
+cat /etc/resolv.conf
+  search default.svc.cluster.local svc.cluster.local cluster.local univ-lille.fr
+  nameserver 10.96.0.10
+  options ndots:5
+----------------------Access---------------------------
+<Service-Name>.<namespace>.svc.cluster.local
+<pod-ip-with-dash>.<namespace>.pod.cluster.local
