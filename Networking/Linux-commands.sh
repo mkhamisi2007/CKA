@@ -22,7 +22,8 @@ cat /proc/sys/net/ipv4/ip_forward
 # local DNS (first priority)
 echo "192.168.1.115 db" >> /etc/hosts
 # Set DNS Server (second priority)
-echo "nameserver 192.168.1.120" >> /etc/resolv.conf
+echo "nameserver 192.168.1.120" >> /etc/resolv.conf  #---> local DNS server
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf  #---> internet DNS server
 # we can change priority in /etc/nsswitch.conf
 1) hosts:  files dns 
 2) hosts:  dns files 
