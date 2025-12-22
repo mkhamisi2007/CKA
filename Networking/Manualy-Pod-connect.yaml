@@ -35,16 +35,22 @@ sudo crictl ps | grep bb-
 sudo crictl inspect <CONTAINER_ID> | grep -n '"pid"' | head  #---> PID_A
 sudo crictl inspect <CONTAINER_ID> | grep -n '"pid"' | head  #---> PID_B
 
+# create => veth (Virtual Ethernet pair) = کابل مجازی
 sudo ip link add veth-a type veth peer name veth-b
+# set endpoints A =  اتصال یک سر کابل
 sudo ip link set veth-a netns PID_A
+# set endpoints B = اتصال یک سر کابل
 sudo ip link set veth-b netns PID_B
 
+# set ip for A
 sudo nsenter -t PID_A -n ip addr add 10.10.0.1/30 dev veth-a
 sudo nsenter -t PID_A -n ip link set veth-a up
 
+# set ip for B
 sudo nsenter -t PID_B -n ip addr add 10.10.0.2/30 dev veth-b
 sudo nsenter -t PID_B -n ip link set veth-b up
 
+# test connection
 kubectl exec -it bb-a -- ping -c 3 10.10.0.2
 kubectl exec -it bb-b -- ping -c 3 10.10.0.1
 
