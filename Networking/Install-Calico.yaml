@@ -1,0 +1,33 @@
+https://docs.tigera.io/calico/latest/getting-started/kubernetes/self-managed-onprem/onpremises
+-----------
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/operator-crds.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/tigera-operator.yaml
+curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.31.3/manifests/custom-resources.yaml
+nano custom-resources.yaml
+---
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+spec:
+  calicoNetwork:
+    ipPools:
+    - name: default-ipv4-ippool
+      blockSize: 26
+      cidr: 172.17.0.0/16 #---> we can change ip range
+      encapsulation: VXLANCrossSubnet
+      natOutgoing: Enabled
+      nodeSelector: all()
+---
+apiVersion: operator.tigera.io/v1
+kind: APIServer
+metadata:
+  name: default
+spec: {}
+-----------------------------------
+kubectl apply -f custom-resources.yaml
+--------------------------------------------------------------OR(just one command below)--------------------------------------------------------
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
+
+
+
