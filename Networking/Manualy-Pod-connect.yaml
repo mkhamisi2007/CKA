@@ -1,0 +1,76 @@
+This is just for test - for create a network connection manualy for 2 pod A and B
+-----------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bb-a
+spec:
+  nodeName: node01
+  containers:
+  - name: bb
+    image: busybox:1.36
+    command: ["sh","-c","sleep 1d"]
+    securityContext:
+      privileged: true
+      capabilities:
+        add: ["NET_ADMIN"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bb-b
+spec:
+  nodeName: node01
+  containers:
+  - name: bb
+    image: busybox:1.36
+    command: ["sh","-c","sleep 1d"]
+    securityContext:
+      privileged: true
+      capabilities:
+        add: ["NET_ADMIN"]
+-----------------------------------------------------------------------
+sudo crictl ps | grep bb-
+
+sudo crictl inspect <CONTAINER_ID> | grep -n '"pid"' | head  #---> PID_A
+sudo crictl inspect <CONTAINER_ID> | grep -n '"pid"' | head  #---> PID_B
+
+sudo ip link add veth-a type veth peer name veth-b
+sudo ip link set veth-a netns PID_A
+sudo ip link set veth-b netns PID_B
+
+sudo nsenter -t PID_A -n ip addr add 10.10.0.1/30 dev veth-a
+sudo nsenter -t PID_A -n ip link set veth-a up
+
+sudo nsenter -t PID_B -n ip addr add 10.10.0.2/30 dev veth-b
+sudo nsenter -t PID_B -n ip link set veth-b up
+
+kubectl exec -it bb-a -- ping -c 3 10.10.0.2
+kubectl exec -it bb-b -- ping -c 3 10.10.0.1
+
+
+# inside container A
+223: veth-a@if222: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue qlen 1000
+    link/ether ce:8c:ca:17:47:9b brd ff:ff:ff:ff:ff:ff
+    inet 10.10.0.1/30 scope global veth-a
+       valid_lft forever preferred_lft forever
+    inet6 fe80::cc8c:caff:fe17:479b/64 scope link
+       valid_lft forever preferred_lft forever
+
+# inside container B
+ip a
+  222: veth-b@if223: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue qlen 1000
+      link/ether 06:b7:fb:93:be:6e brd ff:ff:ff:ff:ff:ff
+      inet 10.10.0.2/30 scope global veth-b
+         valid_lft forever preferred_lft forever
+      inet6 fe80::4b7:fbff:fe93:be6e/64 scope link
+         valid_lft forever preferred_lft forever
+
+
+
+
+
+
+
+
+
