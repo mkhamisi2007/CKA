@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx-demo
+  ports:
+  - port: 80
+    targetPort: 80
+---------------------------------------------------------------------------------------------------------------------------------
+After that we create a Service , Kube-proxy will create record in iptables ---> /* default/nginx-service cluster IP */ tcp dpt:80
+---------------------------------------------------------------------------------------------------------------------------------
+root@k8n-master:~# k apply -f pod-svc.yaml
+pod/nginx-pod created
+service/nginx-service created
+root@k8n-master:~# iptables -t nat -L -n -v | grep service
+    0     0 KUBE-MARK-MASQ  0    --  *      *       192.168.196.152      0.0.0.0/0            /* default/nginx-service */
+    0     0 DNAT       6    --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-service */ tcp to:192.168.196.152:80
+    0     0 KUBE-SVC-V2OKYYMBY3REGZOG  6    --  *      *       0.0.0.0/0            10.108.169.184       /* default/nginx-service cluster IP */ tcp dpt:80
+   49  3016 KUBE-NODEPORTS  0    --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service nodeports; NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
+    0     0 KUBE-MARK-MASQ  6    --  *      *      !192.168.0.0/16       10.108.169.184       /* default/nginx-service cluster IP */ tcp dpt:80
+    0     0 KUBE-SEP-GKT535RW3J4CGFMV  0    --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-service -> 192.168.196.152:80 */
+root@k8n-master:~# k get svc
+  NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+  kubernetes      ClusterIP   10.96.0.1        <none>        443/TCP   24d
+  nginx-service   ClusterIP   10.108.169.184   <none>        80/TCP    35s #---->***
+root@k8n-master:~# k get pod -o wide
+  NAME        READY   STATUS    RESTARTS   AGE   IP                NODE     NOMINATED NODE   READINESS GATES
+  nginx-pod   1/1     Running   0          61s   192.168.196.152   node01   <none>           <none> #---->***
