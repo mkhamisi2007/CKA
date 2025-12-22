@@ -1,5 +1,5 @@
 This is just for test - for create a network connection manualy for 2 pod A and B
------------------------------------------
+-----------------------------------------Network namespace-----------------------------------
 apiVersion: v1
 kind: Pod
 metadata:
@@ -71,6 +71,24 @@ ip a
          valid_lft forever preferred_lft forever
       inet6 fe80::4b7:fbff:fe93:be6e/64 scope link
          valid_lft forever preferred_lft forever
+
+----------------------------------Software Switch(Linux Bridge)----------------------------------------------
+# Linux bridge is a software Layer 2 switch used to connect multiple network interfaces, often via veth pairs
+Namespace A ── veth ─┐
+                      ├─ Bridge ── LAN
+Namespace B ── veth ─┘
+
+# create bridge
+ip link add br0 type bridge
+ip link set br0 up
+
+# create 2 networks
+ip link add veth-a type veth peer name veth-a-br
+ip link add veth-b type veth peer name veth-b-br
+
+# connect 2 network to bridge(switch)
+ip link set veth-a-br master br0
+ip link set veth-b-br master br0
 
 
 
