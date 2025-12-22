@@ -18,3 +18,8 @@ ip route add 192.168.1.0/24 via 192.168.2.1
 
 # بررسی فعال بودن IP Forwarding
 cat /proc/sys/net/ipv4/ip_forward
+
+# local DNS
+echo "192.168.1.115 db" >> /etc/hosts
+# Set DNS Server
+echo "nameserver 192.168.1.120" >> /etc/resolv.conf
