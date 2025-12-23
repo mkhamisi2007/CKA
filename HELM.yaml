@@ -1,11 +1,16 @@
--------------------------Install----------------------------
+---------------------------------Install---------------------------------
 https://helm.sh/docs/intro/install/
 ----
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
 chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
------------------------------------------------------
+------------------------------main commands-------------------------------
+helm install ...
+helm upgrade ...
+helm rollback ...
+helm unistall ...
+--------------------------------repo--------------------------------------
 helm repo list
     NAME    URL
     openebs https://openebs.github.io/charts
@@ -26,12 +31,7 @@ helm search repo bitnami/nginx
 helm show chart bitnami/nginx
 helm show values bitnami/nginx
 helm search repo bitnami/nginx --versions
-------------------------------
-helm install wordpress
-helm upgrade wordpress
-helm rollback wordpress
-helm unistall wordpress
-------------------------Revision(snapshot)--------------------------
+------------------------Revision(snapshot)------------------------------
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install my-nginx bitnami/nginx \
