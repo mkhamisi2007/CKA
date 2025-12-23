@@ -1,4 +1,4 @@
-helm install worldpress
-helm upgrade worldpress
-helm rollback worldpress
-helm unistall worldpress
+helm install wordpress
+helm upgrade wordpress
+helm rollback wordpress
+helm unistall wordpress
