@@ -3,3 +3,45 @@ kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gate
 kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/experimental?ref=v1.6.2" | kubectl apply -f -
  
 helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway
+---------------------------------------------------------------------------
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: nginx
+spec:
+  controllerName: nginx.org/gateway-controller
+---------------------------------------------------------------------------
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: nginx-gateway
+  namespace: default
+spec:
+  gatewayClassName: nginx
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: All
+---------------------------------------------------------------------------
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: basic-route
+  namespace: default
+spec:
+  parentRefs:
+  - name: nginx-gateway
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /app
+    backendRefs:
+    - name: my-app
+      port: 80
+
+
+      
