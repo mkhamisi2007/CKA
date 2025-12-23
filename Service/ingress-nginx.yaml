@@ -89,4 +89,45 @@ spec:
             name: nginx-service
             port:
               number: 80
+----------------------------------------------------defaultBackend------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-backend-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: default-backend
+spec:
+  selector:
+    app: default-backend
+  ports:
+  - port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  defaultBackend:
+    service:
+      name: default-backend
+      port:
+        number: 80
 
+  rules:
+  - host: myapp.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
