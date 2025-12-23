@@ -1,9 +1,11 @@
+https://docs.nginx.com/nginx-gateway-fabric/get-started/#install-the-helm-chart
+-----------------------------------install--------------------------------------------------
 kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v1.6.2" | kubectl apply -f -
  
 kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/experimental?ref=v1.6.2" | kubectl apply -f -
  
 helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway
----------------------------------------------------------------------------
+------------------------------------use---------------------------------------
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
@@ -40,7 +42,7 @@ spec:
         type: PathPrefix
         value: /app
     backendRefs:
-    - name: my-app
+    - name: my-app-service
       port: 80
 
 
