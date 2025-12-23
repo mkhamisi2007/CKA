@@ -10,7 +10,7 @@ helm install wordpress
 helm upgrade wordpress
 helm rollback wordpress
 helm unistall wordpress
-------------------------Revision--------------------------
+------------------------Revision(snapshot)--------------------------
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install my-nginx bitnami/nginx \
@@ -33,6 +33,39 @@ helm history my-nginx
 
 helm rollback my-nginx 1
 --------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
