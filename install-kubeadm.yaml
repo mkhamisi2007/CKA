@@ -18,6 +18,8 @@ apt install -y containerd
 mkdir -p /etc/containerd
 containerd config default | tee /etc/containerd/config.toml
 ---------------# We set SystemdCgroup=true to make containerd use the same cgroup(put limit on resorces like cpu,ram,...) driver as Kubernetes (systemd)----
+containerd config default |sed 's/SystemdCgroup = false/SystemdCgroup = true/' | tee /etc/containerd/config.toml
+#OR
 nano /etc/containerd/config.toml
 	[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
   	SystemdCgroup = true
