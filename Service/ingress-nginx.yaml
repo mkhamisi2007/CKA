@@ -41,7 +41,8 @@ metadata:
   name: nginx-ing
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /  #---> in browser : http://site.com/app => in service :  /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"  #----> not redirect http to https
 spec:
   ingressClassName: nginx
   rules:
