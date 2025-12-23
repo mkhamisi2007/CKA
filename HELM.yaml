@@ -1,1 +1,4 @@
-
+helm install worldpress
+helm upgrade worldpress
+helm rollback worldpress
+helm unistall worldpress
