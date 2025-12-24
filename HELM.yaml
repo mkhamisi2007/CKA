@@ -26,6 +26,16 @@ helm upgrade ...
 helm rollback ...
 helm unistall ...
 helm search ...
+# Tree stracture
+helm
+├── install
+├── upgrade
+├── repo
+│   ├── add
+│   ├── list
+│   ├── update
+│   └── remove
+...
 Available Commands:
   completion  generate autocompletion scripts for the specified shell
 * create      create a new chart with the given name
@@ -58,7 +68,6 @@ Available Commands:
 helm search -h
   Usage:
     helm search [command]
-  
   Available Commands:
     * hub         search for charts in the Artifact Hub or your own hub instance(*https://artifacthub.io/)
     * repo        search repositories for a keyword in charts
