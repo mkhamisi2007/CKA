@@ -10,6 +10,7 @@ k8s/
     └── prod/
         ├── kustomization.yaml
         └── patch.yaml
+---------------------------------------------------------------------> BASE
 --------------------base/deployment.yaml------------------
 apiVersion: apps/v1
 kind: Deployment
@@ -45,6 +46,7 @@ spec:
 resources:
   - deployment.yaml
   - service.yaml
+---------------------------------------------------------------------> DEV
 ------------------overlays/dev/patch.yaml---------------------
 apiVersion: apps/v1
 kind: Deployment
@@ -58,6 +60,7 @@ resources:
 
 patches:
   - patch.yaml
+---------------------------------------------------------------------> PROD
 -----------------overlays/prod/patch.yaml--------------------
 apiVersion: apps/v1
 kind: Deployment
@@ -71,7 +74,7 @@ resources:
 
 patches:
   - patch.yaml
------------------------Run------------------------------------
+-----------------------Run------------------------------------------> RUN
 kubectl apply -k k8s/overlays/dev
 kubectl apply -k k8s/overlays/prod
 
