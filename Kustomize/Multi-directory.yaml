@@ -29,5 +29,7 @@ kind: Kustomization
 resources:
   - db-depl.yaml
   - db-service.yaml
+------------------------------------------------------------------
+# we should do it for all folder and put the name of files in (resources) part 
 ----------------------------RUN------------------------------------
 kubectl apply -k k8s/
