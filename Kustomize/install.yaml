@@ -7,7 +7,7 @@ kustomize build <folder-name>/
 kustomize build <folder-name>/ | kubectl apply -f -
 -----------------------------------------------------------------------------------------------
 in kubernets version > 1.14 the kustomize installed in it - for use it we can use (-k) switch
-# first we create a folder with (base & overlays) folder and then inside the root we apply the next command
+# first we create a folder with 2 folder(base & overlays)  and then inside the root we apply the next command
 kubectl apply -k .
 
 
