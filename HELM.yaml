@@ -101,6 +101,7 @@ helm search repo bitnami/nginx
 helm show chart bitnami/nginx
 helm show values bitnami/nginx
 helm search repo bitnami/nginx --versions
+helm repo remove bitnami
 ------------------------Revision(snapshot)------------------------------
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
