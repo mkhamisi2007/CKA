@@ -27,7 +27,7 @@ namespace: production
 
 images:
   - name: nginx #--> the old name of image that exist in our pod/deployment(be aware it's not the name field in pod/deployment)
-    newName: haproxy #--> the name that replace the (nginx) name 
+    newName: haproxy #--> the new name of image that replace the (nginx) old name 
     newTag: 1.25
     
 replicas:
