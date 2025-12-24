@@ -71,6 +71,10 @@ helm search -h
   Available Commands:
     * hub         search for charts in the Artifact Hub or your own hub instance(*https://artifacthub.io/)
     * repo        search repositories for a keyword in charts
+---------------------------Relase information-----------------------------
+helm get manifest my-nginx
+helm status my-nginx
+helm get values my-nginx
 --------------------------------repo--------------------------------------
 helm repo list
     NAME    URL
