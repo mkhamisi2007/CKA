@@ -1,0 +1,33 @@
+k8s/
+├── kustomization.yaml
+├── api/
+│   └── kustomization.yaml
+├── db/
+│   ├── kustomization.yaml
+│   ├── db-depl.yaml
+│   └── db-service.yaml
+├── cache/
+│   └── kustomization.yaml
+└── kafka/
+    └── kustomization.yaml
+--------------------k8s/kustomization.yaml--------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - api/
+  - db/
+  - cache/
+  - kafka/
+
+commonLabels:
+  company: my-lable
+---------------------k8s/db/kustomization.yaml---------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - db-depl.yaml
+  - db-service.yaml
+----------------------------RUN------------------------------------
+kubectl apply -k k8s/
