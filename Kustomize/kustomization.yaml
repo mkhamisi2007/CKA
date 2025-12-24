@@ -25,10 +25,11 @@ nameSuffix: -v1
 # for all resources
 namespace: production
 
+# replace images : nginx => haproxy:1.25
 images:
   - name: nginx #--> the old name of image that exist in our pod/deployment(be aware it's not the name field in pod/deployment)
     newName: haproxy #--> the new name of image that replace the (nginx) old name 
-    newTag: 1.25
+    newTag: 1.25 #--> nginx => haproxy:1.25
     
 replicas:
   - name: app
