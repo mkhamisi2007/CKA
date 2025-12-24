@@ -1,3 +1,21 @@
+-------------------------Patch in kubectl---------------------------------------------------->
+kubectl patch <resource> <name> \
+  --type=<patch-type> \
+  -p '<patch-content>'
+-------------------------------->
+kubectl patch deployment api-deployment \
+  -p '{"spec":{"replicas":5}}'
+  
+kubectl patch deployment api-deployment \
+  --type='json' \
+  -p='[
+    {"op":"remove","path":"/spec/template/metadata/labels/org"}
+  ]'
+  
+kubectl patch deployment api-deployment \
+  --type='merge' \
+  -p '{"spec":{"replicas":3}}'
+-----------------------------
 - op: add      # اضافه کردن
 - op: remove   # حذف
 - op: replace  # جایگزینی
