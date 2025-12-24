@@ -102,8 +102,17 @@ helm install my-nginx .
 helm upgrade my-nginx .
 
 # maybe there is a dependecy to another chart that placed on charts directory
+nano chats.yaml
+    ...
+    dependencies:
+      - name: redis
+        version: 19.1.0
+        repository: oci://registry-1.docker.io/bitnamicharts
+    ...
+helm dependency update .
+tar -xvf charts/redis-19.1.0.tgz -C charts/
 my-app/
-├── Chart.yaml
+├── Chart.yaml  #---> will added in <dependencies> part
 ├── values.yaml
 ├── templates/
 └── charts/   #---> here is the dependecy charts
