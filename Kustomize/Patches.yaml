@@ -43,7 +43,7 @@ patches:
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: api
+        name: api-deployment #---> it's used for filter the resources
       spec:
         replicas: 2 #---> will change from 3 to 2
-
+-----------------------------------------------------------------------------------------
