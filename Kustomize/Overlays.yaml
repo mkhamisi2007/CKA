@@ -59,7 +59,7 @@ spec:
   replicas: 1 #---> with patch we can ignor (replicas: 1) here its equal
 -----------------overlays/dev/kustomization.yaml--------------
 resources:
-  - ../../base
+  - ../../base #---> load resource from <base> folder
 
 patches:
   - patch.yaml
@@ -73,7 +73,7 @@ spec:
   replicas: 3 #---> with patch we can ignor (replicas: 1) and implelment (replicas: 3)
 -----------------overlays/prod/kustomization.yaml------------
 resources:
-  - ../../base
+  - ../../base  #---> load resource from <base> folder
 
 patches:
   - patch.yaml
