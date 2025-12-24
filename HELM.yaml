@@ -91,7 +91,14 @@ nginx/
         spec:
           replicas: {{ .Values.replicaCount }} #---> from values.yaml
         ...
+#---> render template
+helm template test-nginx .
+#---> detect error
+helm lint .
+#---> install it or if exist upgrade it
 helm install my-nginx .
+helm upgrade my-nginx .
+
 ---------------------------------------------------------------------------------
 
 
