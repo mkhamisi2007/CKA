@@ -26,8 +26,8 @@ nameSuffix: -v1
 namespace: production
 
 images:
-  - name: nginx
-    newName: nginx
+  - name: nginx #--> the name that exist in our pod/deployment
+    newName: haproxy #--> the name that replace the (nginx) name 
     newTag: 1.25
     
 replicas:
