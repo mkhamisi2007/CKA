@@ -126,10 +126,43 @@ spec:
     metadata:
       labels:
         org: null #---> we put <null> for remove the lable
--------------------------------------------------------------------------------------->
+-------------------------------------Chage in List------------------------------------------------->
+# api-depl.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: api
+  template:
+    metadata:
+      labels:
+        component: api
+    spec:
+      containers:
+        - name: nginx #---> we want to change
+          image: nginx #--->  we want to change
+------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 
+resources:
+  - api-depl.yaml
 
-
+patches:
+  - target:
+      kind: Deployment
+      name: api-deployment
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0 #---> for the list we use number from 0,1,2,...
+        value:
+          name: haproxy #---> name: nginx => name: haproxy
+          image: haproxy #---> image: nginx => name: haproxy
+----
 
 
 
