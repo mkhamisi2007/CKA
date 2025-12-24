@@ -1,0 +1,60 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+# OR
+resources:
+  - ../../base
+
+commonLabels:
+  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/part-of: platform
+  env: prod
+  
+commonAnnotations:
+  owner: platform-team
+  managed-by: kustomize
+
+# app → dev-app-v1
+namePrefix: dev-
+nameSuffix: -v1
+
+# for all resources
+namespace: production
+
+images:
+  - name: nginx
+    newName: nginx
+    newTag: 1.25
+    
+replicas:
+  - name: app
+    count: 3
+
+configMapGenerator:
+  - name: app-config
+    literals:
+      - LOG_LEVEL=debug
+# or
+configMapGenerator:
+  - name: app-config
+    files:
+      - application.yaml
+      
+secretGenerator:
+  - name: db-secret
+    literals:
+      - password=123456
+
+patches:
+  - patch.yaml
+
+
+
+
+
+
+
+
+
+
+
