@@ -1,2 +1,5 @@
 snap install kustomize
 kustomize version
+
+# this command does not run manifest - just give us a manifest
+kustomize build <folder-name>/
