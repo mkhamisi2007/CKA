@@ -136,6 +136,7 @@ helm get values my-nginx
 --------------------------------Chart------------------------------------------
 #---> it is better do change values and not the template's files
 helm pull bitnami/nginx --untar
+cd nginx
 nginx/
 ├── Chart.yaml
 ├── values.yaml
