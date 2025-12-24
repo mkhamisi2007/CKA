@@ -29,7 +29,7 @@ namespace: production
 images:
   - name: mango #--> the old name of image that exist in our pod/deployment(be aware it's not the name field in pod/deployment)
     newName: postgress #--> the new name of image that replace the (mango) old name 
-    newTag: 1.25 #--> mango => postgress:1.25
+    newTag: "1.25" #--> mango => postgress:1.25
     
 replicas:
   - name: app
