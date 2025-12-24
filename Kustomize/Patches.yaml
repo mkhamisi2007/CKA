@@ -145,7 +145,7 @@ spec:
       containers:
         - name: nginx #---> we want to change
           image: nginx #--->  we want to change
-------
+--------------inline------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -162,7 +162,25 @@ patches:
         value:
           name: haproxy #---> name: nginx => name: haproxy
           image: haproxy #---> image: nginx => name: haproxy
-----
+--------------merge------------------------->
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches:
+  - label-patch.yaml
+---
+# label-patch.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  template:
+    spec:
+      containers:
+        - name: nginx #---> old name(image: nginx)****
+          image: haproxy #---> new name(image: haproxy)
+----------------------------------------------------------------------------------------------------->
 
 
 
