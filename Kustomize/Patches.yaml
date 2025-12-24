@@ -1,14 +1,14 @@
 - op: add      # اضافه کردن
 - op: remove   # حذف
 - op: replace  # جایگزینی
-----------------api-depl.yaml---------------------
+----------------api-depl.yaml------------------------------------------------------------->
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
 spec:
   replicas: 3
-------------------------kustomization.yaml(name)-[JSON 6902 patch]-------------------------------
+------------------------kustomization.yaml(name)-[JSON 6902 patch]------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 patches:
@@ -19,7 +19,7 @@ patches:
       - op: replace  #---> add,remove,replace
         path: /metadata/name #---> path in api-depl.yaml
         value: web-deployment #---> replace : api-deployment => web-deployment
-------------------------kustomization.yaml(replicas)-[JSON 6902 patch]---------------------------
+------------------------kustomization.yaml(replicas)-[JSON 6902 patch]--------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -31,7 +31,7 @@ patches:
       - op: replace
         path: /spec/replicas
         value: 5
--------------------------------Another type of paching(1)--------------------------------
+-------------------------------Another type of paching(1)-------------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -46,7 +46,7 @@ patches:
         name: api-deployment #---> it's used for filter the resources
       spec:
         replicas: 2 #---> will change from 3 to 2
--------------------------------Another type of paching(2)--------------------------------
+-------------------------------Another type of paching(2)-------------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -67,7 +67,7 @@ patches:
 - op: replace
   path: /spec/template/spec/containers/0/image
   value: nginx:1.25
--------------------------------Another type of paching(3)--------------------------------
+-------------------------------Another type of paching(3)-------------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -92,7 +92,7 @@ spec:
       containers:
         - name: nginx
           image: nginx:1.25
-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------->
 
 
 
