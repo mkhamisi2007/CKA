@@ -6,7 +6,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-deployment
-------------------kustomization.yaml---------------
+------------------------kustomization.yaml(name)------------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 patches:
   - target:  #--> select target for do patching
       kind: Deployment
@@ -15,4 +17,16 @@ patches:
       - op: replace  #---> add,remove,replace
         path: /metadata/name #---> path in api-depl.yaml
         value: web-deployment #---> replace : api-deployment => web-deployment
----------------------------------------------------
+------------------------kustomization.yaml(replicas)---------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches:
+  - target:
+      kind: Deployment
+      name: api-deployment
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 5
+
