@@ -1,0 +1,18 @@
+- op: add      # اضافه کردن
+- op: remove   # حذف
+- op: replace  # جایگزینی
+----------------api-depl.yaml---------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+------------------kustomization.yaml---------------
+patches:
+  - target:
+      kind: Deployment
+      name: api-deployment
+    patch: |-
+      - op: replace  #---> add,remove,replace
+        path: /metadata/name
+        value: web-deployment
+---------------------------------------------------
