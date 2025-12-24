@@ -30,7 +30,7 @@ Available Commands:
 * history     fetch release history
 * install     install a chart
   lint        examine a chart for possible issues
-  list        list releases
+* list        list releases
   package     package a chart directory into a chart archive
   plugin      install, list, or uninstall Helm plugins
 * pull        download a chart from a repository and (optionally) unpack it in local directory
