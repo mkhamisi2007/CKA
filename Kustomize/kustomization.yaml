@@ -39,7 +39,13 @@ configMapGenerator:
   - name: app-config
     files:
       - application.yaml
-      
+# its related to configmap for generate unique name when pod restated
+generatorOptions:
+  disableNameSuffixHash: true
+# true = name: app-config 
+# false = name: app-config-9k7h6t4f9d 
+
+
 secretGenerator:
   - name: db-secret
     literals:
