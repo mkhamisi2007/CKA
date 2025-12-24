@@ -12,8 +12,11 @@ helm version
 # add bitnami repository
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
+helm repo remove bitnami
 ------------------------------sample deployment---------------------------
 helm install my-nginx bitnami/nginx 
+# OR with special version
+helm install my-nginx bitnami/nginx --vesion 7.1.10
 helm list
     NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART          APP VERSION
     my-nginx        default         1               2025-12-24 09:11:33.013918152 +0000 UTC deployed        nginx-22.4.0   1.29.4
