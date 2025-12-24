@@ -3,3 +3,5 @@ kustomize version
 
 # this command does not run manifest - just give us a manifest
 kustomize build <folder-name>/
+# this will run our manifest
+kustomize build <folder-name>/ | kubectl apply -f -
