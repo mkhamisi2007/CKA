@@ -14,5 +14,5 @@ patches:
     patch: |-
       - op: replace  #---> add,remove,replace
         path: /metadata/name #---> path in api-depl.yaml
-        value: web-deployment
+        value: web-deployment #---> replace : api-deployment => web-deployment
 ---------------------------------------------------
