@@ -1,0 +1,92 @@
+k8s/
+├── base/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── kustomization.yaml
+└── overlays/
+    ├── dev/
+    │   ├── kustomization.yaml
+    │   └── patch.yaml
+    └── prod/
+        ├── kustomization.yaml
+        └── patch.yaml
+--------------------base/deployment.yaml------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+-----------------base/service.yaml-----------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 80
+      targetPort: 80
+-----------------base/kustomization.yaml----------------------
+resources:
+  - deployment.yaml
+  - service.yaml
+------------------overlays/dev/patch.yaml---------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+-----------------overlays/dev/kustomization.yaml--------------
+resources:
+  - ../../base
+
+patches:
+  - patch.yaml
+-----------------overlays/prod/patch.yaml--------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 3
+-----------------overlays/prod/kustomization.yaml------------
+resources:
+  - ../../base
+
+patches:
+  - patch.yaml
+-----------------------Run------------------------------------
+kubectl apply -k k8s/overlays/dev
+kubectl apply -k k8s/overlays/prod
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
