@@ -63,6 +63,15 @@ resources:
 
 patches:
   - patch.yaml
+#---OR--->
+patches:
+  - target:
+      kind: Deployment
+      name: api-deployment
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
 ---------------------------------------------------------------------> PROD
 -----------------overlays/prod/patch.yaml--------------------
 apiVersion: apps/v1
