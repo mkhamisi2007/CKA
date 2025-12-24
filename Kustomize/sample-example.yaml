@@ -74,7 +74,7 @@ resources:
 
 patches:
   - patch.yaml
------------------------Run------------------------------------------> RUN
+-----------------------Run(with -k parameter)---------------------------> RUN
 kubectl apply -k k8s/overlays/dev
 kubectl apply -k k8s/overlays/prod
 
