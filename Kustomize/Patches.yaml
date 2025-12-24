@@ -8,6 +8,11 @@ metadata:
   name: api-deployment
 spec:
   replicas: 3
+  template:
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.11
 ------------------------kustomization.yaml(name)-inline------------------------->
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -82,6 +87,7 @@ metadata:
 spec:
   replicas: 5
 -----image-patch.yaml---
+#--> in merge type we write from begin of file and we just add the part that we want to change
 apiVersion: apps/v1
 kind: Deployment
 metadata:
