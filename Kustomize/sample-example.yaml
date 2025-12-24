@@ -46,6 +46,9 @@ spec:
 resources:
   - deployment.yaml
   - service.yaml
+#optional part for add lable to all resources
+commonLabels:
+  company: test-lable
 ---------------------------------------------------------------------> DEV
 ------------------overlays/dev/patch.yaml---------------------
 apiVersion: apps/v1
