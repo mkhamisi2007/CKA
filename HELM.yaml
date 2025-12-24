@@ -74,9 +74,25 @@ helm upgrade my-nginx bitnami/nginx \
   --set replicaCount=4
 # show current values
 helm get values my-nginx
---------------------------------------------------------------------------
-
-
+--------------------------------Chart------------------------------------------
+#---> it is better do change values and not the template's files
+helm pull bitnami/nginx --untar
+nginx/
+├── Chart.yaml
+├── values.yaml
+└── templates/
+    ├── deployment.yaml
+    ├── service.yaml
+    ├── ingress.yaml
+    └── _helpers.tpl
+    ---
+        apiVersion: apps/v1
+        kind: Deployment
+        spec:
+          replicas: {{ .Values.replicaCount }} #---> from values.yaml
+        ...
+helm install my-nginx .
+---------------------------------------------------------------------------------
 
 
 
