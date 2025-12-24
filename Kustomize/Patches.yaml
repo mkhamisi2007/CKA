@@ -8,7 +8,7 @@ metadata:
   name: api-deployment
 spec:
   replicas: 3
-------------------------kustomization.yaml(name)------------------------------
+------------------------kustomization.yaml(name)-[JSON 6902 patch]-------------------------------
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 patches:
@@ -19,7 +19,7 @@ patches:
       - op: replace  #---> add,remove,replace
         path: /metadata/name #---> path in api-depl.yaml
         value: web-deployment #---> replace : api-deployment => web-deployment
-------------------------kustomization.yaml(replicas)---------------------------
+------------------------kustomization.yaml(replicas)-[JSON 6902 patch]---------------------------
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -31,7 +31,7 @@ patches:
       - op: replace
         path: /spec/replicas
         value: 5
--------------------------------Another type of paching--------------------------------
+-------------------------------Another type of paching(1)--------------------------------
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -46,4 +46,18 @@ patches:
         name: api-deployment #---> it's used for filter the resources
       spec:
         replicas: 2 #---> will change from 3 to 2
------------------------------------------------------------------------------------------
+-------------------------------Another type of paching(2)--------------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches:
+  - path: replica-patch.yaml #--> in another file
+    target:
+      kind: Deployment
+      name: nginx-deployment
+-----replica-patch.yaml---
+- op: replace
+  path: /spec/replicas
+  value: 5
+-------------------------------Another type of paching(3)--------------------------------
+
