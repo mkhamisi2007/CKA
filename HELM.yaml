@@ -44,6 +44,15 @@ Available Commands:
 * upgrade     upgrade a release
   verify      verify that a chart at the given path has been signed and is valid
   version     print the helm version information
+
+# sub commands
+helm search -h
+  Usage:
+    helm search [command]
+  
+  Available Commands:
+    * hub         search for charts in the Artifact Hub or your own hub instance(*https://artifacthub.io/)
+    * repo        search repositories for a keyword in charts
 --------------------------------repo--------------------------------------
 helm repo list
     NAME    URL
