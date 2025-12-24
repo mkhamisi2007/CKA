@@ -67,7 +67,7 @@ patches:
 patches:
   - target:
       kind: Deployment
-      name: api-deployment
+      name: app
     patch: |-
       - op: replace
         path: /spec/replicas
