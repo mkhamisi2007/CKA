@@ -7,6 +7,10 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
+----------------------------Help ans Subcommands--------------------------
+helm -h
+helm repo -h
+helm repo update -h 
 ------------------------------main commands-------------------------------
 helm install ...
 helm upgrade ...
@@ -120,8 +124,6 @@ my-app/
         ├── Chart.yaml
         ├── values.yaml
         └── templates/
-
-
 ---------------------------------------------------------------------------------
 
 
