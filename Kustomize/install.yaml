@@ -5,6 +5,7 @@ kustomize version
 kustomize build <folder-name>/
 # this will run our manifest
 kustomize build <folder-name>/ | kubectl apply -f -
+kustomize build <folder-name>/ | kubectl delete -f -
 -----------------------------------------------------------------------------------------------
 in kubernets version > 1.14 the kustomize installed in it - for use it we can use (-k) switch
 # first we create a folder and inside it make 2 folder(base & overlays) and then in the root we apply the next command
