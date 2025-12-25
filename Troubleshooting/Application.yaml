@@ -29,6 +29,7 @@ User
                 └─ Logs / Events
 ---------------------------------------------------------------------------------MAin MAP
 curl  http://web-serice-ip:port
+kubectl get all -n <name-space>
 ---WEB
 kubectl get svc
 kubectl describe svc web-svc 
