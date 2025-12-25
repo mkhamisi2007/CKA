@@ -12,8 +12,16 @@ Cluster
 # status
 kubectl get nodes -o wide
 kubectl describe node <node-name>
+        Conditions:
+          Type                 *Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+          ----                 ------  -----------------                 ------------------                ------                       -------
+          NetworkUnavailable   False   Sun, 21 Dec 2025 07:55:34 +0000   Sun, 21 Dec 2025 07:55:34 +0000   CalicoIsUp                   Calico is running on this node
+          MemoryPressure       False   Thu, 25 Dec 2025 14:21:27 +0000   Sun, 21 Dec 2025 07:54:27 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+          DiskPressure         False   Thu, 25 Dec 2025 14:21:27 +0000   Sun, 21 Dec 2025 07:54:27 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+          PIDPressure          False   Thu, 25 Dec 2025 14:21:27 +0000   Sun, 21 Dec 2025 07:54:27 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+          Ready                True    Thu, 25 Dec 2025 14:21:27 +0000   Sun, 21 Dec 2025 07:55:20 +0000   KubeletReady                 kubelet is posting ready status
 
-# if not ready
+# kubelet => if not ready
 systemctl status kubelet --no-pager
 journalctl -u kubelet -n 200 --no-pager
 systemctl restart kubelet
@@ -30,6 +38,7 @@ kubectl get pods -n kube-system -o wide | grep calico
 kubectl logs -n kube-system <calico-pod> 
 
 # resorces
+dmesg -T | tail -n 80
 free -h
 df -h
 top
@@ -45,6 +54,9 @@ kubectl describe pod <pod-name>
 # check if node can not connect to api-server
 curl -k https://<API_SERVER_IP>:6443/healthz
 
+# date & time
+date
+timedatectl
 
 
 
