@@ -1,0 +1,72 @@
+k8s/
+├── base/
+│   └── kustomization.yaml
+├── components/
+│   └── monitoring/
+│       └── kustomization.yaml
+└── overlays/
+    ├── dev/
+    │   └── kustomization.yaml #---> Component is Active
+    └── prod/
+        └── kustomization.yaml #---> Component is not Active
+-----------------------------components/monitoring/kustomization.yaml------------------------------
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - patch-monitoring.yaml
+-----------------------------components/monitoring/patch-monitoring.yaml------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+-----------------------------overlays/prod/kustomization.yaml------------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+components: #-------> active it here
+  - ../../components/monitoring
+-----------------------------overlays/dev/kustomization.yaml------------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+--------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
