@@ -1,5 +1,120 @@
 #shoud be ready
-kubectl get node
+kubectl get nodes
+
+#for see pod in pending state
+kubectl get pods
+
+# for see pod of kuberenetes status
+kubectl get pods -n kube-system
+kubectl describe pod <pod>
+kubectl logs <pod>
+
+# kubelet status
+systemctl status kubelet --no-pager
+journalctl -u kubelet -n 200 --no-pager
+systemctl restart kubelet
+
+# api-server (containerd)
+sudo crictl info | head
+    WARN[0000] runtime connect using default endpoints: [unix:///run/containerd/containerd.sock unix:///run/crio/crio.sock unix:///var/run/cri-dockerd.sock].  you should set the endpoint instead.{
+    "status": {
+      "conditions": [
+        {
+          "type": "RuntimeReady",
+          "status": true,
+          "reason": "",
+          "message": ""
+        }
+sudo crictl ps -a | egrep "kube-apiserver|kube-controller-manager|kube-scheduler|etcd"
+    5cfca2c72e16f       01e8bacf0f500       8 days ago          Running             kube-controller-manager   3                   5153531a6f41f       kube-controller-manager-k8n-master
+    7cf00ed2e6f1d       88320b5498ff2       8 days ago          Running             kube-scheduler            3                   526bff31990a9       kube-scheduler-k8n-master
+    eaa49b89de096       a5f569d49a979       10 days ago         Running             kube-apiserver            0                   9cf036b5bad2a       kube-apiserver-k8n-master
+    c898664667244       88320b5498ff2       10 days ago         Exited              kube-scheduler            2                   526bff31990a9       kube-scheduler-k8n-master
+    f7d363ed61cec       01e8bacf0f500       10 days ago         Exited              kube-controller-manager   2                   5153531a6f41f       kube-controller-manager-k8n-master
+    81b9b607bade0       5f1f5298c888d       3 weeks ago         Running             etcd                      2                   ce673d476fe7d       etcd-k8n-master
+    28940f4016236       5f1f5298c888d       3 weeks ago         Exited              etcd                      1                   ce673d476fe7d       etcd-k8n-master
+sudo crictl logs <CONTAINER_ID> | tail -n 200
+
+# check static manifest exist
+ls -l /etc/kubernetes/manifests/
+
+# check port of api-server is up
+sudo ss -lntp | grep 6443
+    LISTEN 0      4096                *:6443             *:*    users:(("kube-apiserver",pid=1848625,fd=3))
+  
+# date time check
+date
+timedatectl
+
+# chek certification validity
+kubeadm certs check-expiration
+    CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
+    admin.conf                 Nov 28, 2026 06:31 UTC   337d            ca                      no
+    apiserver                  Nov 28, 2026 06:31 UTC   337d            ca                      no
+    apiserver-etcd-client      Nov 28, 2026 06:31 UTC   337d            etcd-ca                 no
+    apiserver-kubelet-client   Nov 28, 2026 06:31 UTC   337d            ca                      no
+    controller-manager.conf    Nov 28, 2026 06:31 UTC   337d            ca                      no
+    etcd-healthcheck-client    Nov 28, 2026 06:31 UTC   337d            etcd-ca                 no
+    etcd-peer                  Nov 28, 2026 06:31 UTC   337d            etcd-ca                 no
+    etcd-server                Nov 28, 2026 06:31 UTC   337d            etcd-ca                 no
+    front-proxy-client         Nov 28, 2026 06:31 UTC   337d            front-proxy-ca          no
+    scheduler.conf             Nov 28, 2026 06:31 UTC   337d            ca                      no
+    super-admin.conf           Nov 28, 2026 06:31 UTC   337d            ca                      no
+    
+    CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
+    ca                      Nov 26, 2035 06:31 UTC   9y              no
+    etcd-ca                 Nov 26, 2035 06:31 UTC   9y              no
+    front-proxy-ca          Nov 26, 2035 06:31 UTC   9y              no
+
+# renew if expired
+kubeadm certs renew all
+systemctl restart kubelet
+
+# etcd DataBase
+crictl ps -a | grep etcd
+crictl logs <ETCD_CONTAINER_ID> | tail -n 200
+
+# disck space
+df -h
+sudo du -sh /var/lib/etcd
+
+# check resources
+dmesg -T | tail -n 80
+free -h
+top
+df -h
+
+# network conectivity for api-server
+curl -k https://127.0.0.1:6443/healthz
+
+# verify that it is ready for use
+export KUBECONFIG=/etc/kubernetes/admin.conf
+kubectl get nodes
+kubectl get pods -n kube-system
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
