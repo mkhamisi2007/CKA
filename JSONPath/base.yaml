@@ -30,7 +30,7 @@ $.person['name','age'] => ali 30
   "bike"
 ]
 -----------------
-$[0]  => car
-$[3] => bike
-
+$[0]  => [car]
+$[3] => [bike]
+$[0,1]  => [car , bus]
 
