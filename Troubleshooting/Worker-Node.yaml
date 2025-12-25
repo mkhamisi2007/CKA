@@ -60,7 +60,7 @@ timedatectl
 
 # configuration file
 cat /var/lib/kubelet/config.yaml
-
+cat /etc/kubernetes/kubelet.conf
 
 
 
