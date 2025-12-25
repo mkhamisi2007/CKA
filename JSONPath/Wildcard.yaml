@@ -1,0 +1,64 @@
+*        یعنی همه
+[*]      همه اعضای لیست
+.*       همه valueهای object
+-------------------------------
+["car", "bus", "truck", "bike"]
+jpath '$[*]' ---->
+[
+  "car",
+  "bus",
+  "truck",
+  "bike"
+]
+------------------------------
+{
+  "name": "Ali",
+  "age": 30,
+  "city": "Paris"
+}
+jpath '$.*' ----->
+[
+  "Ali",
+  30,
+  "Paris"
+]
+------------------------------
+{
+  "people": [
+    { "name": "Ali", "age": 30 },
+    { "name": "Sara", "age": 25 },
+    { "name": "Reza", "age": 35 }
+  ]
+}
+jpath '$.people[*].name' --->
+[
+  "Ali",
+  "Sara",
+  "Reza"
+]
+------------------------------
+jpath '$.people[*].*'
+[
+  "Ali",
+  30,
+  "Sara",
+  25,
+  "Reza",
+  35
+]
+------------------------------
+{
+  "skills": ["docker", "kubernetes", "aws"]
+}
+jpath '$.skills[*]' ---->
+[
+  "docker",
+  "kubernetes",
+  "aws"
+]
+------------------------------
+
+
+
+
+
