@@ -27,7 +27,7 @@ User
                 ├─ Volume:
                 │   └─ PersistentVolumeClaim
                 └─ Logs / Events
----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------USER-->
 # genaeral status 
 kubectl get all -n demo -o wide
 kubectl get events -n demo --sort-by=.metadata.creationTimestamp | tail -n 30
@@ -36,8 +36,8 @@ kubectl get events -n demo --sort-by=.metadata.creationTimestamp | tail -n 30
 kubectl get svc -n demo web-svc
 kubectl get nodes -o wide
 curl -v http://<NODE_IP>:<NODE_PORT>
----------------------------------------------------------------------------------
-# Endpoints
+---------------------------------------------------------------------------------WEB-->
+# WEB Endpoints
 kubectl get endpoints -n demo web-svc -o wide
 # OR
 kubectl describe svc -n demo web-svc
@@ -49,10 +49,10 @@ kubectl get pods -n demo --show-labels
 # WEB Pod
 kubectl get pods -n demo -o wide
 ---------------------------------------------------------------------------------
-# Pod events
+# WEB Pod events
 kubectl describe pod -n demo <web-pod-name>
 ---------------------------------------------------------------------------------
-# Pod & container Log
+# WEB Pod & container Log
 kubectl logs -n demo <web-pod-name>
 kubectl logs -n demo <web-pod-name> -c <container-name>
 ---------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ kubectl logs -n demo <web-pod-name> -f
 # previous log
 kubectl logs -n demo <web-pod-name> --previous
 ---------------------------------------------------------------------------------
-# check DB inside web pod
+# check DB inside WEB pod
 kubectl exec -n demo -it <web-pod-name> -- sh
 nslookup db-svc
 # OR
@@ -73,7 +73,7 @@ nc -zv db-svc 5432
 kubectl run -n demo tmp --rm -it --image=busybox:1.36 -- sh
 nslookup db-svc
 nc -zv db-svc 5432
----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------DB-->
 # DB enpoint and service
 kubectl get endpoints -n demo db-svc -o wide
 kubectl describe svc -n demo db-svc
