@@ -1,0 +1,67 @@
+Cluster
+│
+└── Worker Node
+    ├── Node Status (Ready / NotReady)
+    ├── kubelet
+    ├── Container Runtime (containerd / docker)
+    ├── Network (CNI)
+    ├── Resources (CPU / RAM / Disk)
+    ├── Taints
+    └── Pods on Node
+---------------------------------------------------
+# status
+kubectl get nodes -o wide
+kubectl describe node <node-name>
+
+# if not ready
+systemctl status kubelet --no-pager
+journalctl -u kubelet -n 200 --no-pager
+systemctl restart kubelet
+
+# containerd
+systemctl status containerd --no-pager
+crictl ps
+crictl info
+systemctl restart containerd
+
+# network(calico)
+ls /etc/cni/net.d/
+kubectl get pods -n kube-system -o wide | grep calico
+kubectl logs -n kube-system <calico-pod> 
+
+# resorces
+free -h
+df -h
+top
+
+#Taint
+kubectl describe node <node-name> | grep -i taint -A3
+kubectl taint nodes <node-name> node.kubernetes.io/disk-pressure:NoSchedule-
+
+# see the problem with the pod on the node
+kubectl get pods -A -o wide | grep <node-name>
+kubectl describe pod <pod-name>
+
+# check if node can not connect to api-server
+curl -k https://<API_SERVER_IP>:6443/healthz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
