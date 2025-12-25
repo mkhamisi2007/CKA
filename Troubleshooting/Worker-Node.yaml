@@ -58,7 +58,8 @@ curl -k https://<API_SERVER_IP>:6443/healthz
 date
 timedatectl
 
-
+# configuration file
+cat /var/lib/kubelet/config.yaml
 
 
 
