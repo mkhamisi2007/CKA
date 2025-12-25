@@ -32,3 +32,81 @@ User
 kubectl get all -n demo -o wide
 kubectl get events -n demo --sort-by=.metadata.creationTimestamp | tail -n 30
 ---------------------------------------------------------------------------------
+# service is accesible from user
+kubectl get svc -n demo web-svc
+kubectl get nodes -o wide
+curl -v http://<NODE_IP>:<NODE_PORT>
+---------------------------------------------------------------------------------
+# Endpoints
+kubectl get endpoints -n demo web-svc -o wide
+# OR
+kubectl describe svc -n demo web-svc
+---------------------------------------------------------------------------------
+# Service ↔ Pod Discovery (Label & Selector)
+kubectl get svc -n demo web-svc -o yaml | sed -n '/selector:/,/ports:/p'
+kubectl get pods -n demo --show-labels
+---------------------------------------------------------------------------------
+# WEB Pod
+kubectl get pods -n demo -o wide
+---------------------------------------------------------------------------------
+# Pod events
+kubectl describe pod -n demo <web-pod-name>
+---------------------------------------------------------------------------------
+# Pod & container Log
+kubectl logs -n demo <web-pod-name>
+kubectl logs -n demo <web-pod-name> -c <container-name>
+---------------------------------------------------------------------------------
+# if pod restart try to see online logs
+kubectl logs -n demo <web-pod-name> -f
+# previous log
+kubectl logs -n demo <web-pod-name> --previous
+---------------------------------------------------------------------------------
+# check DB inside web pod
+kubectl exec -n demo -it <web-pod-name> -- sh
+nslookup db-svc
+# OR
+ping -c 1 db-svc
+# port
+nc -zv db-svc 5432
+# OR
+# we can use BusyBox
+kubectl run -n demo tmp --rm -it --image=busybox:1.36 -- sh
+nslookup db-svc
+nc -zv db-svc 5432
+---------------------------------------------------------------------------------
+# DB enpoint and service
+kubectl get endpoints -n demo db-svc -o wide
+kubectl describe svc -n demo db-svc
+---------------------------------------------------------------------------------
+# DB status
+kubectl get pods -n demo -o wide
+kubectl describe pod -n demo <db-pod-name>
+---------------------------------------------------------------------------------
+# DB logs
+kubectl logs -n demo <db-pod-name>
+kubectl logs -n demo <db-pod-name> --previous
+---------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
