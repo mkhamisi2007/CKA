@@ -1,3 +1,44 @@
+Cluster
+│
+└── Master / Control Plane
+    │
+    ├── API Server
+    │   ├── Port 6443 listening?
+    │   ├── Certificates valid?
+    │   ├── Can kubectl connect?
+    │   └── Logs (crictl)
+    │
+    ├── etcd
+    │   ├── Running?
+    │   ├── Disk space OK?
+    │   ├── Data corruption?
+    │   └── Logs
+    │
+    ├── kubelet (on master)
+    │   ├── Service running?
+    │   ├── Static Pods loaded?
+    │   └── Logs / Errors
+    │
+    ├── Controller Manager
+    │   ├── Running?
+    │   └── Logs
+    │
+    ├── Scheduler
+    │   ├── Running?
+    │   └── Logs
+    │
+    ├── Certificates / Time
+    │   ├── Cert expired?
+    │   └── System time correct?
+    │
+    ├── Resources
+    │   ├── CPU / RAM
+    │   └── Disk (/var/lib/etcd)
+    │
+    └── Network / Firewall
+        ├── 6443 reachable?
+        └── localhost healthz OK?
+-----------------------------------------------------------------------
 #shoud be ready
 kubectl get nodes
 
