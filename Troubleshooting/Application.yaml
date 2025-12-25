@@ -27,6 +27,20 @@ User
                 ├─ Volume:
                 │   └─ PersistentVolumeClaim
                 └─ Logs / Events
+---------------------------------------------------------------------------------MAin MAP
+curl  http://web-serice-ip:port
+---WEB
+kubectl get svc
+kubectl describe svc web-svc 
+kubectl logs web
+kubectl logs web -f
+kubectl logs web -f --previous
+---DB
+kubectl get pod
+kubectl describe svc db-svc 
+kubectl logs db
+kubectl logs db -f
+kubectl logs db -f --previous
 ---------------------------------------------------------------------------------USER-->
 # genaeral status 
 kubectl get all -n demo -o wide
