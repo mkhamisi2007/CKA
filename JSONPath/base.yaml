@@ -14,10 +14,11 @@ $.person.name      فیلد name
 [0]               عضو اول لیست
 [start:end]       [1:2]
 $..age  recrsive(all filed that named "age" in the file)
+
 --------------------------------
 $.person.name  => Ali
 $.person.age  => 30
 $.person.skills[*]  => docker kubernetes aws
 $.person.skills[0]  => docker
 $.person.skills[1:2] => docker kubernetes
-
+$.person['name','age'] => ali 30
