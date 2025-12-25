@@ -1,0 +1,34 @@
+User
+│
+└── WEB-Service (Service)
+    │   ├─ Type: NodePort / LoadBalancer
+    │   ├─ Selector: app=web
+    │   └─ Endpoints
+    │       └── WEB Pod IP:PORT
+    │
+    └── WEB Pod (Deployment / Pod)
+        │   ├─ Container: web-app
+        │   ├─ Image: web-image
+        │   ├─ Ports: 80
+        │   ├─ Env:
+        │   │   └─ DB_HOST=db-svc
+        │   └─ Logs / Events / Restarts
+        │
+        └── DB-Service (Service)
+            │   ├─ Type: ClusterIP
+            │   ├─ Selector: app=db
+            │   └─ Endpoints
+            │       └── DB Pod IP:PORT
+            │
+            └── DB Pod (Deployment / Pod)
+                ├─ Container: database
+                ├─ Image: postgres / mysql / mongodb
+                ├─ Ports: 5432 / 3306 / 27017
+                ├─ Volume:
+                │   └─ PersistentVolumeClaim
+                └─ Logs / Events
+---------------------------------------------------------------------------------
+# genaeral status 
+kubectl get all -n demo -o wide
+kubectl get events -n demo --sort-by=.metadata.creationTimestamp | tail -n 30
+---------------------------------------------------------------------------------
