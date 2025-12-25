@@ -1,14 +1,47 @@
 k8s/
 ├── base/
-│   └── kustomization.yaml
-├── components/
-│   └── monitoring/
+│   ├── kustomization.yaml
+│   ├── db/
+│   │   ├── db-depl.yaml
+│   │   ├── db-service.yaml
+│   │   └── kustomization.yaml
+│   └── api/
+│       ├── api-depl.yaml
+│       ├── api-service.yaml
 │       └── kustomization.yaml
+│
+├── components/
+│   ├── monitoring/
+│   │   ├── kustomization.yaml
+│   │   └── monitoring-patch.yaml
+│   │
+│   ├── logging/
+│   │   ├── kustomization.yaml
+│   │   └── logging-sidecar-patch.yaml
+│   │
+│   └── limits/
+│       ├── kustomization.yaml
+│       └── resources-patch.yaml
+│
 └── overlays/
     ├── dev/
-    │   └── kustomization.yaml #---> Component is Active
+    │   ├── kustomization.yaml
+    │   ├── db/
+    │   │   ├── db-patch.yaml
+    │   │   └── kustomization.yaml
+    │   └── api/
+    │       ├── api-patch.yaml
+    │       └── kustomization.yaml
+    │
     └── prod/
-        └── kustomization.yaml #---> Component is not Active
+        ├── kustomization.yaml
+        ├── db/
+        │   ├── db-patch.yaml
+        │   └── kustomization.yaml
+        └── api/
+            ├── api-patch.yaml
+            └── kustomization.yaml
+
 -----------------------------components/monitoring/kustomization.yaml------------------------------
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
@@ -40,9 +73,16 @@ kind: Kustomization
 
 resources:
   - ../../base
---------------------------------------------------------------------------------------------
+--------------------------------------WE can active any component--------------------------
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
 
-
+components:
+  - ../../components/monitoring
+  - ../../components/limits
+------------------------------------------------------------------------------------------
 
 
 
