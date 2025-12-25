@@ -14,7 +14,7 @@ $.person.name      فیلد name
 [0]               عضو اول لیست
 [start:end]       [1:2]
 $..age  recrsive(all filed that named "age" in the file)
-
+[?()]  condition--> see condition file
 --------------------------------
 $.person.name  => Ali
 $.person.age  => 30
