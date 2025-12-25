@@ -28,6 +28,7 @@ User
                 │   └─ PersistentVolumeClaim
                 └─ Logs / Events
 ---------------------------------------------------------------------------------MAin MAP
+kubectl config set-context --current --namespace=demo
 curl  http://web-serice-ip:port
 kubectl get all -n <name-space>
 ---WEB
