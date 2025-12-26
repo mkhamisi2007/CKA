@@ -1,5 +1,10 @@
+---------------------install--------------------
+
+pip3 install jsonpath-ng
+--------------------use case---------------------
 #jpath '$.property1'
 kubectl get pods -o jsonpath='{.items[*].metadata.name}'
+aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId'
 -----------------------------------------
 {
   "person": {
