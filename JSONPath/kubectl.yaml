@@ -29,7 +29,7 @@ node01   <nil>
 kubectl get nodes -o=jsonpath='{range .items[?(@.spec.taints)]}{.metadata.name}{"\t"}{.spec.taints}{"\n"}{end}'
 master   [{node-role.kubernetes.io/control-plane:NoSchedule}]
 
-# range = loop
+# range = loop = ForEach ---> {range ...} ... {end}
 {.items[*].metadata.name}
 node1 node2 node3
 {range .items[*]}{.metadata.name}{"\n"}{end}
