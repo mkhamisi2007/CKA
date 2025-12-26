@@ -17,6 +17,7 @@ $[3]
 ["Amazon"]
 $[0,3] #---> 0,3
 ["Apple", "Amazon"]
+------------------------------
 $[start:end]
 $[0:3] #---> 0,1,2
 [
@@ -26,10 +27,39 @@ $[0:3] #---> 0,1,2
 ]
 $[:3]
 ["Apple", "Google", "Microsoft"]
----
+-----------------------------
 $[*] #---> OR $
 All list
----
+-----------------------------
+$[START : END : STEP]
+$[0:8:2]
+[
+  "Apple",
+  "Microsoft",
+  "Facebook",
+  "Samsung"
+]
+$[::2]
+[
+  "Apple",
+  "Microsoft",
+  "Facebook",
+  "Samsung",
+  "Toyota"
+]
+$[::-1] #--> از اخر به اول پیمایش می کند
+[
+  "McDonald's",
+  "Toyota",
+  "Disney",
+  "Samsung",
+  "Coca-Cola",
+  "Facebook",
+  "Amazon",
+  "Microsoft",
+  "Google",
+  "Apple"
+]
 
 
 
