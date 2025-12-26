@@ -1,6 +1,8 @@
+# the $ is not neded here
 kubectl get pod -o wide
 kubectl get pod -o json
-
+# name of image of our Pod
+kubectl get pod -o jsonpath='{.items[0].spec.containers[0].image}'
 
 
 
