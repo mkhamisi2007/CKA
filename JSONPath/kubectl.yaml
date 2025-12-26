@@ -16,7 +16,7 @@ amd64 amd64
 kubectl get nodes -o=jsonpath='{.items[*].status.capacity.cpu}'
 4 4
 
-# with new line and 2 query
+# with new line and 2 query => {"\t"}=Tab , {"\n"}=New Line
 kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.capacity.cpu}{"\n"}{end}'
 master   4
 node01   4
