@@ -60,6 +60,39 @@ $[::-1] #--> از اخر به اول پیمایش می کند
   "Google",
   "Apple"
 ]
+---------------------
+$[-1] #--> last lindex = not supported in all version instead use the below commands
+$[-1:]
+# OR
+$[-1:0]
+[
+  "McDonald's"
+]
+$[-3:]
+[
+  "Disney",
+  "Toyota",
+  "McDonald's"
+]
+$[-2:]
+[
+  "Toyota",
+  "McDonald's"
+]
+$[0:-1] #--> all member except the last
+[
+  "Apple",
+  "Google",
+  "Microsoft",
+  "Amazon",
+  "Facebook",
+  "Coca-Cola",
+  "Samsung",
+  "Disney",
+  "Toyota"
+]
+
+
 
 
 
