@@ -4,8 +4,22 @@ kubectl get pod -o json
 # name of image of our Pod
 kubectl get pod -o jsonpath='{.items[0].spec.containers[0].image}'
 
+# node name
+kubectl get nodes -o=jsonpath='{.items[*].metadata.name}'
+master node01
 
+# artichecture
+kubectl get nodes -o=jsonpath='{.items[*].status.nodeInfo.architecture}'
+amd64 amd64
 
+# cpu count of nodes
+kubectl get nodes -o=jsonpath='{.items[*].status.capacity.cpu}'
+4 4
+
+# with new line and 2 query
+kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.capacity.cpu}{"\n"}{end}'
+master   4
+node01   4
 
 
 
