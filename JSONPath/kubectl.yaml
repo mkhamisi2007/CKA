@@ -1,0 +1,24 @@
+kubectl get pod -o wide
+kubectl get pod -o json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
