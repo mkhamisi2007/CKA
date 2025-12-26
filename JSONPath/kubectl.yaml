@@ -29,8 +29,25 @@ node01   <nil>
 kubectl get nodes -o=jsonpath='{range .items[?(@.spec.taints)]}{.metadata.name}{"\t"}{.spec.taints}{"\n"}{end}'
 master   [{node-role.kubernetes.io/control-plane:NoSchedule}]
 
-
-
+# range = loop
+{.items[*].metadata.name}
+node1 node2 node3
+{range .items[*]}{.metadata.name}{"\n"}{end}
+node1
+node2
+node3
+#use 2 range = 2 for to display all container of each pod
+kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{" -> "}{range .spec.containers[*]}{.name}{" "}{end}{"\n"}{end}'
+nginx-pod -> nginx sidecar
+redis-pod -> redis
+# list of all taint
+kubectl get nodes -o=jsonpath='
+{range .items[*]}
+{.metadata.name}{"\n"}
+{range .spec.taints[*]}
+  - {.key}:{.effect}{"\n"}
+{end}
+{end}'
 
 
 
