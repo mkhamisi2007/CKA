@@ -60,7 +60,15 @@ NODE         CPU
 k8n-master   2
 node01       2
 
-
+# we can sort our data
+kubectl get nodes --sort-by=.metadata.name
+kubectl get nodes --sort-by=.status.capacity.cpu
+kubectl get nodes \
+-o=custom-columns=NODE:.metadata.name,CPU:.status.capacity.cpu \
+--sort-by=.status.capacity.cpu
+NODE         CPU
+k8n-master   2
+node01       4
 
 
 
