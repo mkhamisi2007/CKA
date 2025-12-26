@@ -49,9 +49,16 @@ kubectl get nodes -o=jsonpath='
 {end}
 {end}'
 
-
-
-
+# we can have custom-columns
+kubectl get nodes -o=custom-columns=NODE:.metadata.name
+NODE #---> custom-columns
+master
+node01
+---
+kubectl get nodes -o=custom-columns=NODE:.metadata.name,CPU:.status.capacity.cpu
+NODE         CPU
+k8n-master   2
+node01       2
 
 
 
