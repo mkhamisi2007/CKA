@@ -21,7 +21,13 @@ kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.c
 master   4
 node01   4
 
-
+# see Taint
+kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.taints}{"\n"}{end}'
+master   [{node-role.kubernetes.io/control-plane:NoSchedule}]
+node01   <nil>
+# only with Taint
+kubectl get nodes -o=jsonpath='{range .items[?(@.spec.taints)]}{.metadata.name}{"\t"}{.spec.taints}{"\n"}{end}'
+master   [{node-role.kubernetes.io/control-plane:NoSchedule}]
 
 
 
