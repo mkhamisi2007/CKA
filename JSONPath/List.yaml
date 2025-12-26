@@ -1,0 +1,55 @@
+[
+  "Apple",
+  "Google",
+  "Microsoft",
+  "Amazon",
+  "Facebook",
+  "Coca-Cola",
+  "Samsung",
+  "Disney",
+  "Toyota",
+  "McDonald's"
+]
+------------------------------
+$[0]
+["Apple"]
+$[3]
+["Amazon"]
+$[0,3] #---> 0,3
+["Apple", "Amazon"]
+$[start:end]
+$[0:3] #---> 0,1,2
+[
+  "Apple",
+  "Google",
+  "Microsoft"
+]
+$[:3]
+["Apple", "Google", "Microsoft"]
+---
+$[*] #---> OR $
+All list
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
