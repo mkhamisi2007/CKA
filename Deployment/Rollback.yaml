@@ -8,7 +8,7 @@ kubectl set image deployment/nginx-deployment nginx=nginx:1.26
 kubectl rollout history deployment/nginx-deployment
     REVISION  CHANGE-CAUSE
     1         <none>
-    2         <none>
+    2         kubectl.exe set image deployment/nginx-deployment nginx=nginx:1.26 --record=true
     
 kubectl rollout status deployment/nginx-deployment
 
