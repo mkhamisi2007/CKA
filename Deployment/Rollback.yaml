@@ -12,9 +12,9 @@ kubectl rollout undo deployment/nginx-deployment --to-revision=1
 
 
 kubectl get rs
-NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-6f9d8f4b7    0         0         0       10m
-nginx-deployment-7bc9d6f5d    2         2         2       2m
+    NAME                          DESIRED   CURRENT   READY   AGE
+    nginx-deployment-6f9d8f4b7    0         0         0       10m
+    nginx-deployment-7bc9d6f5d    2         2         2       2m
 
 
 
