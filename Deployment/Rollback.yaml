@@ -1,0 +1,24 @@
+kubectl create deployment nginx-deployment --image=nginx:1.25
+kubectl set image deployment/nginx-deployment nginx=nginx:1.26
+kubectl rollout history deployment/nginx-deployment
+    REVISION  CHANGE-CAUSE
+    1         <none>
+    2         <none>
+kubectl rollout status deployment/nginx-deployment
+
+#Rollback
+kubectl rollout undo deployment/nginx-deployment
+kubectl rollout undo deployment/nginx-deployment --to-revision=1
+
+
+kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-6f9d8f4b7    0         0         0       10m
+nginx-deployment-7bc9d6f5d    2         2         2       2m
+
+
+
+
+
+
+
