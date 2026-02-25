@@ -1,2 +1,11 @@
+# wen we put pause the update not apply untill we execute resume
 kubectl create deployment nginx-deployment --image=nginx:1.25
+
+# we pause the chenge execution
 kubectl rollout pause deployment/nginx-deployment
+
+# it will not be executed
+kubectl set image deployment/nginx-deployment nginx=nginx:1.26
+
+# it will executed
+kubectl rollout resume deployment/nginx-deployment
