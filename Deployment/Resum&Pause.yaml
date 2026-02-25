@@ -1,0 +1,2 @@
+kubectl create deployment nginx-deployment --image=nginx:1.25
+kubectl rollout pause deployment/nginx-deployment
