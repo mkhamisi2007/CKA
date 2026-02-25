@@ -20,8 +20,8 @@ kubectl rollout undo deployment/nginx-deployment --to-revision=1
 # every REVISION is connected to a ReplicaSet that will not be deleted
 kubectl get rs
     NAME                          DESIRED   CURRENT   READY   AGE
-    nginx-deployment-6f9d8f4b7    0         0         0       10m
-    nginx-deployment-7bc9d6f5d    2         2         2       2m
+    nginx-deployment-546dff8b69   0         0         0       4m12s
+    nginx-deployment-9fdcf75b8    1         1         1       3m9s
 
 
 
