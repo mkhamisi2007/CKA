@@ -9,13 +9,14 @@ kubectl rollout history deployment/nginx-deployment
     REVISION  CHANGE-CAUSE
     1         <none>
     2         <none>
+    
 kubectl rollout status deployment/nginx-deployment
 
 #Rollback
 kubectl rollout undo deployment/nginx-deployment
 kubectl rollout undo deployment/nginx-deployment --to-revision=1
 
-
+# every REVISION is connected to a ReplicaSet that will not be deleted
 kubectl get rs
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-6f9d8f4b7    0         0         0       10m
