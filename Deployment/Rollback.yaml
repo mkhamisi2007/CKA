@@ -1,5 +1,10 @@
+#create a deployment
 kubectl create deployment nginx-deployment --image=nginx:1.25
+
+# make a change(image here)
 kubectl set image deployment/nginx-deployment nginx=nginx:1.26
+
+# every chage will create a REVISION
 kubectl rollout history deployment/nginx-deployment
     REVISION  CHANGE-CAUSE
     1         <none>
