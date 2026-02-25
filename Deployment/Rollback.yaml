@@ -11,7 +11,8 @@ kubectl rollout history deployment/nginx-deployment
     2         kubectl.exe set image deployment/nginx-deployment nginx=nginx:1.26 --record=true
     
 kubectl rollout status deployment/nginx-deployment
-
+    deployment "nginx-deployment" successfully rolled out
+    
 #Rollback
 kubectl rollout undo deployment/nginx-deployment
 kubectl rollout undo deployment/nginx-deployment --to-revision=1
