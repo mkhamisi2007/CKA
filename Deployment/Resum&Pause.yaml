@@ -9,3 +9,4 @@ kubectl set image deployment/nginx-deployment nginx=nginx:1.26
 
 # it will executed
 kubectl rollout resume deployment/nginx-deployment
+
