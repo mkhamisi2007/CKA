@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-policy-webhook
+  namespace: admission-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-policy-webhook
+  template:
+    metadata:
+      labels:
+        app: image-policy-webhook
+    spec:
+      containers:
+        - name: webhook
+          image: your-dockerhub/admission-python:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - name: tls
+              mountPath: /certs
+              readOnly: true
+      volumes:
+        - name: tls
+          secret:
+            secretName: webhook-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: image-policy-webhook
+  namespace: admission-demo
+spec:
+  selector:
+    app: image-policy-webhook
+  ports:
+    - port: 443
+      targetPort: 8443
