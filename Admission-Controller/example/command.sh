@@ -3,8 +3,7 @@ kubectl create secret docker-registry my-docker-secret --docker-username=mkhamis
 docker login
 docker build -t mkhamisi2007/admission-python:v1 .
 docker push mkhamisi2007/admission-python:v1
-
-
+---
 openssl genrsa -out tls.key 2048
 openssl req -new -key tls.key -subj "/CN=image-policy-webhook.admission-demo.svc" -out tls.csr
 cat > csr.conf <<EOF
@@ -18,10 +17,10 @@ kubectl create secret tls webhook-tls \
   --cert=tls.crt \
   --key=tls.key \
   -n admission-demo
-  
+---
 kubectl apply -f webhook-deployment.yaml
 kubectl apply -f validating-webhook.yaml
-
+---
 root@k8n-master:~/admission# kubectl run test-nginx --image=nginx
 ##--> pod/test-nginx created
 root@k8n-master:~/admission# kubectl run test-busybox --image=busybox
