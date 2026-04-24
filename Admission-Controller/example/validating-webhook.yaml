@@ -1,0 +1,34 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: image-policy-webhook
+webhooks:
+  - name: image-policy.example.com
+    admissionReviewVersions:
+      - v1
+    sideEffects: None
+    failurePolicy: Fail
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-system
+            - admission-demo
+    clientConfig:
+      service:
+        name: image-policy-webhook
+        namespace: admission-demo
+        path: /validate
+        port: 443
+      caBundle: <PUT_CA_BUNDLE_HERE>
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+        apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        resources:
+          - pods
