@@ -11,6 +11,9 @@ cat > csr.conf <<EOF
 subjectAltName = DNS:image-policy-webhook.admission-demo.svc,DNS:image-policy-webhook.admission-demo.svc.cluster.local
 EOF
 
+CA_BUNDLE=$(cat tls.crt | base64 | tr -d '\n')
+echo $CA_BUNDLE #----> copy for put in validating-webhook.yaml
+
 kubectl create secret tls webhook-tls \
   --cert=tls.crt \
   --key=tls.key \
