@@ -18,6 +18,9 @@ kubectl create secret tls webhook-tls \
   --cert=tls.crt \
   --key=tls.key \
   -n admission-demo
+  
+kubectl apply -f validating-webhook.yaml
+kubectl apply -f validating-webhook.yaml
 
 root@k8n-master:~/admission# kubectl run test-nginx --image=nginx
 ##--> pod/test-nginx created
