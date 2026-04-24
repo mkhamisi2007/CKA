@@ -9,3 +9,8 @@ openssl req -new -key tls.key -subj "/CN=image-policy-webhook.admission-demo.svc
 cat > csr.conf <<EOF
 subjectAltName = DNS:image-policy-webhook.admission-demo.svc,DNS:image-policy-webhook.admission-demo.svc.cluster.local
 EOF
+
+kubectl create secret tls webhook-tls \
+  --cert=tls.crt \
+  --key=tls.key \
+  -n admission-demo
