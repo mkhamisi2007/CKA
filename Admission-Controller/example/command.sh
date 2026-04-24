@@ -18,3 +18,8 @@ kubectl create secret tls webhook-tls \
   --cert=tls.crt \
   --key=tls.key \
   -n admission-demo
+
+root@k8n-master:~/admission# kubectl run test-nginx --image=nginx
+##--> pod/test-nginx created
+root@k8n-master:~/admission# kubectl run test-busybox --image=busybox
+##--> Error from server: admission webhook "image-policy.example.com" denied the request: Image 'busybox' is not allowed. Only nginx images are allowed.
