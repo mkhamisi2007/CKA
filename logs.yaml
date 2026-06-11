@@ -1,4 +1,4 @@
-----------log commands-----------------
+----------log commands-------------------
 kubectl logs pod-name
 kubectl logs pod-name -c container-name
 journalctl -u kubelet
